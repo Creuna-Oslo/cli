@@ -1,0 +1,24 @@
+{
+  "name": "@creuna/cli",
+  "version": "0.0.1",
+  "description": "Creuna command line tools",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "creuna": "./index.js"
+  },
+  "author": "Asbjørn Hegdahl <asbjorn.hegdahl@creuna.no>",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.4.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.3",
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "prettier": "^1.13.4"
+  }
+}
