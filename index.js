@@ -2,28 +2,34 @@
 /* eslint-env node */
 /* eslint-disable no-console */
 const chalk = require('chalk');
-const { rename, toStateless } = require('@creuna/react-scripts');
+const {
+  newComponent,
+  newPage,
+  rename,
+  toStateless
+} = require('@creuna/react-scripts');
 
 const printHelp = require('./print-help');
+const [command, arg1, arg2] = process.argv.slice(2);
 
-switch (process.argv[2]) {
+switch (command) {
   case 'new':
     console.log('Create new project');
     break;
   case 'component':
-    console.log('Create component');
+    newComponent(arg1, process.argv.indexOf('-s') !== -1 ? true : undefined);
     break;
-  case 'mockup':
-    console.log('Create mockup page');
+  case 'page':
+    newPage(arg1);
     break;
   case 'rename':
-    rename(process.argv[3], process.argv[4]);
+    rename(arg1, arg2);
     break;
   case 'stateful':
     console.log('To stateful');
     break;
   case 'stateless':
-    toStateless(process.argv[3]);
+    toStateless(arg1);
     break;
   case undefined:
     printHelp();

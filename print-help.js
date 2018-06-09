@@ -11,7 +11,7 @@ const commands = [
   {
     name: 'new',
     args: '<path>',
-    description: 'Create new React project'
+    description: 'Create new project'
   },
   {
     name: 'component',
@@ -19,7 +19,7 @@ const commands = [
     description: 'Create new React component'
   },
   {
-    name: 'mockup',
+    name: 'page',
     args: '<name>',
     description: 'Create new mockup page component'
   },
