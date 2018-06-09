@@ -8,13 +8,14 @@ const {
   rename,
   toStateless
 } = require('@creuna/react-scripts');
+const newProject = require('@creuna/create-react-app');
 
 const printHelp = require('./print-help');
 const [command, arg1, arg2] = process.argv.slice(2);
 
 switch (command) {
   case 'new':
-    console.log('Create new project');
+    newProject(arg1);
     break;
   case 'component':
     newComponent(arg1, process.argv.indexOf('-s') !== -1 ? true : undefined);
