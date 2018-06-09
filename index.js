@@ -6,6 +6,7 @@ const {
   newComponent,
   newPage,
   rename,
+  toStateful,
   toStateless
 } = require('@creuna/react-scripts');
 const newProject = require('@creuna/create-react-app');
@@ -27,7 +28,7 @@ switch (command) {
     rename(arg1, arg2);
     break;
   case 'stateful':
-    console.log('To stateful');
+    toStateful(arg1);
     break;
   case 'stateless':
     toStateless(arg1);
