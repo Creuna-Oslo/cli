@@ -14,6 +14,11 @@ const commands = [
     description: 'Create new project'
   },
   {
+    name: 'lib',
+    args: '',
+    description: 'Add a component from the library'
+  },
+  {
     name: 'component',
     args: '<name>',
     description: 'Create new React component'
@@ -68,4 +73,5 @@ ${commands.map(printLineCommand).join('')}
 
 🌈  All command ${cyan('arguments')} are optional
 `);
+  process.exit(0);
 };
