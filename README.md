@@ -6,7 +6,7 @@
 - [react-scripts](https://github.com/Creuna-Oslo/react-scripts)
 - [react-components](https://github.com/Creuna-Oslo/react-components)
 
-<!-- ### Install
+### Install
 
 ```
 yarn add -g '@creuna/cli'
@@ -16,7 +16,7 @@ yarn add -g '@creuna/cli'
 
 ```
 creuna
-``` -->
+```
 
 ### Notes
 
