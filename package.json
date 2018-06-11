@@ -12,7 +12,12 @@
   "author": "Asbjørn Hegdahl <asbjorn.hegdahl@creuna.no>",
   "license": "MIT",
   "dependencies": {
-    "chalk": "^2.4.1"
+    "@creuna/create-react-app": "^1.1.0",
+    "@creuna/react-scripts": "^1.0.0",
+    "chalk": "^2.4.1",
+    "find-up": "^2.1.0",
+    "octonode": "^0.9.2",
+    "select-shell": "^1.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",
