@@ -21,7 +21,7 @@ if (command === 'new') {
   newProject();
 } else {
   // All other commands require .creunarc.json to run
-  getConfig().then(({ componentsPath }) => {
+  getConfig().then(({ componentsPath, mockupPath }) => {
     switch (command) {
       case 'lib':
         lib(componentsPath);
@@ -29,20 +29,21 @@ if (command === 'new') {
       case 'component':
         newComponent(
           arg1,
-          process.argv.indexOf('-s') !== -1 ? true : undefined
+          process.argv.indexOf('-s') !== -1 ? true : undefined,
+          componentsPath
         );
         break;
       case 'page':
-        newPage(arg1);
+        newPage(arg1, mockupPath);
         break;
       case 'rename':
-        rename(arg1, arg2);
+        rename(arg1, arg2, componentsPath);
         break;
       case 'stateful':
-        toStateful(arg1);
+        toStateful(arg1, componentsPath);
         break;
       case 'stateless':
-        toStateless(arg1);
+        toStateless(arg1, componentsPath);
         break;
       case undefined:
         printHelp();
