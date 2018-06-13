@@ -9,7 +9,13 @@
 ### Install
 
 ```
-yarn add -g '@creuna/cli'
+yarn global add @creuna/cli
+```
+
+or
+
+```
+npm install -g @creuna/cli
 ```
 
 ### Usage
