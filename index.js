@@ -14,7 +14,7 @@ const {
 const pkg = require('./package.json');
 const getConfig = require('./source/get-config');
 const lib = require('./source/get-components-from-library');
-const printHelp = require('./print-help');
+const printHelp = require('./source/print-help');
 const [command, arg1, arg2] = process.argv.slice(2);
 
 const supportedCommands = {
