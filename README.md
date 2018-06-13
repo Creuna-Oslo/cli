@@ -20,7 +20,7 @@ creuna
 
 ### Notes
 
-All commands except `creuna new` require a `.creunarc.json` and a `.eslintr.json` in your project root. If you run `creuna new` you'll get these for free. 😎
+All commands except `creuna new` require a `.creunarc.json` and a `.eslintrc.json` in your project root. If you run `creuna new` you'll get these for free. 😎
 
 #### .creunarc.json
 
