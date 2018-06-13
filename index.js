@@ -11,11 +11,15 @@ const {
   toStateless
 } = require('@creuna/react-scripts');
 
-const pkg = require('./package.json');
+const configstore = require('./source/configstore');
+const version = require('./source/get-this-version');
 const getConfig = require('./source/get-config');
 const lib = require('./source/get-components-from-library');
 const printHelp = require('./source/print-help');
 const [command, arg1, arg2] = process.argv.slice(2);
+const fetchLatestVersion = require('./source/fetch-latest-version');
+
+fetchLatestVersion();
 
 const supportedCommands = {
   component: 'component',
@@ -28,8 +32,25 @@ const supportedCommands = {
 };
 
 if (process.argv.includes('--version') || process.argv.includes('-v')) {
-  console.log(pkg.version);
+  console.log(version);
   process.exit(0);
+}
+
+const latestVersion = configstore.get('latestVersion');
+if (latestVersion && version !== latestVersion) {
+  console.log(
+    `🦄  ${chalk.greenBright(
+      `You are using version ${chalk.blueBright(
+        version
+      )}, but the latest version is ${chalk.blueBright(latestVersion)}.`
+    )}`
+  );
+  console.log(
+    `👩‍💻  Run ${chalk.blueBright('yarn global add @creuna/cli')} or ${chalk.cyan(
+      'npm i -g @creuna/cli'
+    )} to get the latest version.`
+  );
+  console.log('');
 }
 
 if (!command) {
