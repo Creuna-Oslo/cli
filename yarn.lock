@@ -204,9 +204,9 @@
   dependencies:
     arrify "^1.0.1"
 
-"@creuna/create-react-app@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@creuna/create-react-app/-/create-react-app-1.1.0.tgz#399cfdad1ec7359c9c8aa4b64e118edefac4ffba"
+"@creuna/create-react-app@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@creuna/create-react-app/-/create-react-app-1.1.1.tgz#8a79dff87d82666f9804b0c1a9a9118151ab75df"
   dependencies:
     chalk "^2.1.0"
     fs-extra "^6.0.1"
