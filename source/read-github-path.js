@@ -12,8 +12,8 @@ module.exports = function(path) {
       if (err) {
         console.log(
           `🙀  ${chalk.redBright("Oh no! Couldn't get files!")}
-This likely means that the hourly GitHub API quota has been exceeded
-You should let ${chalk.blueBright('asbjorn.hegdahl@creuna.no')} know asap.`
+This likely means that the hourly GitHub API quota has been exceeded.
+You should let ${chalk.blueBright('asbjorn.hegdahl@creuna.no')} know ASAP.`
         );
         process.exit(1);
       }

@@ -18,7 +18,7 @@ module.exports = function(componentNames) {
 
   return new Promise(resolve => {
     console.log(chalk.bold('Select components'));
-    console.log(chalk.dim('spacebar to select, ESC to abort\n'));
+    console.log(chalk.dim('Spacebar to select, ESC to abort\n'));
 
     componentNames.forEach(name => {
       list.option(name);
