@@ -11,7 +11,7 @@ const {
   toStateless
 } = require('@creuna/react-scripts');
 
-const package = require('./package.json');
+const pkg = require('./package.json');
 const getConfig = require('./source/get-config');
 const lib = require('./source/get-components-from-library');
 const printHelp = require('./print-help');
@@ -28,7 +28,7 @@ const supportedCommands = {
 };
 
 if (process.argv.includes('--version') || process.argv.includes('-v')) {
-  console.log(package.version);
+  console.log(pkg.version);
   process.exit(0);
 }
 
