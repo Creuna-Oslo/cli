@@ -22,9 +22,8 @@ module.exports = function() {
       };
     } else {
       console.log(
-        `😱  ${red('No')} .creunarc.json' ${red(
-          'file found. Check the readme'
-        )}`
+        `😱  ${red('No')} .creunarc.json ${red(
+          'file found. Check the documentation at https://github.com/Creuna-Oslo/cli')}`
       );
       process.exit(1);
     }
