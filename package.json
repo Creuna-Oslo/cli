@@ -1,6 +1,6 @@
 {
   "name": "@creuna/cli",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Creuna command line tools",
   "main": "index.js",
   "scripts": {
