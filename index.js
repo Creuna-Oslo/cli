@@ -11,46 +11,76 @@ const {
   toStateless
 } = require('@creuna/react-scripts');
 
+const package = require('./package.json');
 const getConfig = require('./source/get-config');
 const lib = require('./source/get-components-from-library');
 const printHelp = require('./print-help');
 const [command, arg1, arg2] = process.argv.slice(2);
 
-if (command === 'new') {
+const supportedCommands = {
+  component: 'component',
+  lib: 'lib',
+  new: 'new',
+  page: 'page',
+  rename: 'rename',
+  stateful: 'stateful',
+  stateless: 'stateless'
+};
+
+if (process.argv.includes('--version') || process.argv.includes('-v')) {
+  console.log(package.version);
+  process.exit(0);
+}
+
+if (!command) {
+  printHelp();
+} else if (command === supportedCommands.new) {
   // 'new' does not require .creunarc.json
   newProject();
-} else {
+} else if (Object.values(supportedCommands).includes(command)) {
   // All other commands require .creunarc.json to run
-  getConfig().then(({ componentsPath, mockupPath }) => {
-    switch (command) {
-      case 'lib':
-        lib(componentsPath);
-        break;
-      case 'component':
-        newComponent(
-          arg1,
-          process.argv.indexOf('-s') !== -1 ? true : undefined,
-          componentsPath
-        );
-        break;
-      case 'page':
-        newPage(arg1, mockupPath);
-        break;
-      case 'rename':
-        rename(arg1, arg2, componentsPath);
-        break;
-      case 'stateful':
-        toStateful(arg1, componentsPath);
-        break;
-      case 'stateless':
-        toStateless(arg1, componentsPath);
-        break;
-      case undefined:
-        printHelp();
-        break;
-      default:
-        console.log(`Unrecognized command ${chalk.redBright(process.argv[2])}`);
-        printHelp();
-    }
-  });
+  getConfig()
+    .then(({ componentsPath, mockupPath }) => {
+      switch (command) {
+        case supportedCommands.lib:
+          lib(componentsPath);
+          break;
+        case supportedCommands.component:
+          newComponent(
+            arg1,
+            process.argv.indexOf('-s') !== -1 ? true : undefined,
+            componentsPath
+          );
+          break;
+        case supportedCommands.page:
+          newPage(arg1, mockupPath);
+          break;
+        case supportedCommands.rename:
+          rename(arg1, arg2, componentsPath);
+          break;
+        case supportedCommands.stateful:
+          toStateful(arg1, componentsPath);
+          break;
+        case supportedCommands.stateless:
+          toStateless(arg1, componentsPath);
+          break;
+        default:
+          // NOTE: This should never happen
+          printHelp();
+          break;
+      }
+    })
+    .catch(error => {
+      console.log(
+        `😱 ${chalk.redBright(
+          'Error reading configuration file'
+        )} ${chalk.blueBright('.creunarc.json')}${chalk.redBright(
+          '. See https://github.com/Creuna-Oslo/cli'
+        )}`
+      );
+    });
+} else {
+  // NOTE: Unrecognized command
+  console.log(`😱  Unrecognized command "${chalk.redBright(command)}".`);
+  printHelp();
 }
