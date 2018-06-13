@@ -11,15 +11,12 @@ const {
   toStateless
 } = require('@creuna/react-scripts');
 
-const configstore = require('./source/configstore');
+const latestVersion = require('./source/get-latest-version');
 const version = require('./source/get-this-version');
 const getConfig = require('./source/get-config');
 const lib = require('./source/get-components-from-library');
 const printHelp = require('./source/print-help');
 const [command, arg1, arg2] = process.argv.slice(2);
-const fetchLatestVersion = require('./source/fetch-latest-version');
-
-fetchLatestVersion();
 
 const supportedCommands = {
   component: 'component',
@@ -36,7 +33,6 @@ if (process.argv.includes('--version') || process.argv.includes('-v')) {
   process.exit(0);
 }
 
-const latestVersion = configstore.get('latestVersion');
 if (latestVersion && version !== latestVersion) {
   console.log(
     `🦄  ${chalk.greenBright(
