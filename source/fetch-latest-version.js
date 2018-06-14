@@ -2,9 +2,8 @@ const request = require('request');
 const semver = require('semver');
 
 const configstore = require('./configstore');
-const currentVersion = require('./get-this-version');
 
-function fetchLatestVersion(onNewVersion) {
+function fetchLatestVersion(currentVersion, onNewVersion) {
   request(
     {
       url: 'https://registry.npmjs.org/@creuna/cli',
@@ -26,7 +25,7 @@ function fetchLatestVersion(onNewVersion) {
           typeof onNewVersion === 'function' &&
           semver.gt(latestVersion, currentVersion)
         ) {
-          onNewVersion(latestVersion);
+          onNewVersion(currentVersion, latestVersion);
         }
       } catch (error) {
         // NOTE: Noop because we don't really care and there is no graceful fallback

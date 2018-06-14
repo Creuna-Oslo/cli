@@ -84,7 +84,7 @@ if (!command) {
   shouldExit = true;
 }
 
-fetchLatestVersion(latestVersion => {
+fetchLatestVersion(currentVersion, (currentVersion, latestVersion) => {
   messages.versionConflict(currentVersion, latestVersion);
 });
 
