@@ -1,8 +1,10 @@
 /* eslint-env node */
 /* eslint-disable no-console */
-const path = require('path');
 const chalk = require('chalk');
+const path = require('path');
 const termImg = require('term-img');
+
+const logoFallback = require('./logo-fallback');
 
 const blue = chalk.blueBright;
 const bold = chalk.bold;
@@ -87,19 +89,6 @@ const printLineCommand = ({ args, name, description }) => {
   return `👉  ${blue(name)} ${cyan(args)} ${padding}  ${description}\n`;
 };
 
-const imageFallback = () => {
-  const name = 'Creuna CLI';
-  const colors = [
-    '#fea3aa',
-    '#f8b88b',
-    '#faf884',
-    '#baed91',
-    '#b2cefe',
-    '#f2a2e8'
-  ];
-  console.log(colors.map(color => chalk.hex(color)(name)).join(' '));
-};
-
 const gitHubReadError = () => {
   console.log(
     `🙀  ${chalk.redBright("Oh no! Couldn't get files!")}
@@ -109,7 +98,11 @@ You should let ${chalk.blueBright('asbjorn.hegdahl@creuna.no')} know ASAP.`
 };
 
 const help = () => {
-  termImg(path.join(__dirname, 'creuna.png'), { fallback: imageFallback });
+  termImg(path.join(__dirname, 'creuna.png'), {
+    fallback: () => {
+      console.log(logoFallback);
+    }
+  });
   emptyLine();
   console.log(`${bold('Usage:')} creuna ${blue('<command>')}\n`);
   console.log(bold('Commands:'));
