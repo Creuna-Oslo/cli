@@ -97,6 +97,14 @@ You should let ${chalk.blueBright('asbjorn.hegdahl@creuna.no')} know ASAP.`
   );
 };
 
+const githubRequestTimeout = () => {
+  console.log(
+    `😩  ${chalk.redBright(
+      "Couldn't connect to GitHub. Make sure you're connected to the interwebs!"
+    )}`
+  );
+};
+
 const help = () => {
   termImg(path.join(__dirname, 'creuna.png'), {
     fallback: () => {
@@ -169,6 +177,7 @@ module.exports = {
   emptyLine,
   errorReadingConfig,
   gitHubReadError,
+  githubRequestTimeout,
   help,
   missingFile,
   noComponentsSelected,

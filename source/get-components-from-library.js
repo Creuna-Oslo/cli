@@ -3,17 +3,28 @@ const { ensureDirSync } = require('fs-extra');
 const fs = require('fs');
 const path = require('path');
 
+const canConnect = require('./can-connect');
 const messages = require('./messages');
 const selectComponents = require('./select-components');
 const readGhPath = require('./read-github-path');
 
 module.exports = async function(localComponentsPath) {
+  messages.emptyLine();
   messages.searchingForComponents();
+
+  const canConnectToGitHub = await canConnect('www.github.com');
+
+  if (!canConnectToGitHub) {
+    messages.githubRequestTimeout();
+    messages.emptyLine();
+    process.exit(1);
+  }
 
   const componentNames = await readGhPath('components').then(componentPaths =>
     // Remove first slug ('components/')
     componentPaths.map(({ path }) => path.substring(path.indexOf('/') + 1))
   );
+
   const selectedComponents = await selectComponents(componentNames);
 
   messages.emptyLine();
@@ -28,12 +39,12 @@ module.exports = async function(localComponentsPath) {
       messages.componentAlreadyExists(componentName);
       return false;
     }
-
     return true;
   }, []);
 
   if (filteredComponents.length === 0) {
     messages.noComponentsToWrite();
+    messages.emptyLine();
     process.exit(0);
   }
 
@@ -61,16 +72,13 @@ module.exports = async function(localComponentsPath) {
       messages.missingFile();
       return;
     }
-
     const content = file.content;
     const filePath = path.join(
       localComponentsPath,
       file.path.replace('/', path.sep)
     );
     const directory = filePath.substring(0, filePath.lastIndexOf('/'));
-
     ensureDirSync(directory);
-
     fs.writeFileSync(filePath, content);
   });
 
