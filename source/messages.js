@@ -110,6 +110,7 @@ You should let ${chalk.blueBright('asbjorn.hegdahl@creuna.no')} know ASAP.`
 
 const help = () => {
   termImg(path.join(__dirname, 'creuna.png'), { fallback: imageFallback });
+  emptyLine();
   console.log(`${bold('Usage:')} creuna ${blue('<command>')}\n`);
   console.log(bold('Commands:'));
   console.log(commands.map(printLineCommand).join(''));
