@@ -10,7 +10,7 @@ const {
   toStateless
 } = require('@creuna/react-scripts');
 
-const latestVersion = require('./source/get-latest-version');
+const fetchLatestVersion = require('./source/fetch-latest-version');
 const currentVersion = require('./source/get-this-version');
 const getConfig = require('./source/get-config');
 const lib = require('./source/get-components-from-library');
@@ -84,9 +84,9 @@ if (!command) {
   shouldExit = true;
 }
 
-if (latestVersion && currentVersion !== latestVersion) {
+fetchLatestVersion(currentVersion, (currentVersion, latestVersion) => {
   messages.versionConflict(currentVersion, latestVersion);
-}
+});
 
 if (shouldExit) {
   process.exit(0);
