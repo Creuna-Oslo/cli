@@ -56,7 +56,7 @@ if (!command) {
           );
           break;
         case supportedCommands.page:
-          newPage(arg1, mockupPath);
+          newPage(arg1, arg2, mockupPath);
           break;
         case supportedCommands.rename:
           rename(arg1, arg2, componentsPath);
