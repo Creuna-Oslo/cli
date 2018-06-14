@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 /* eslint-env node */
 /* eslint-disable no-console */
-const chalk = require('chalk');
 const newProject = require('@creuna/create-react-app');
 const {
   newComponent,
@@ -12,10 +11,10 @@ const {
 } = require('@creuna/react-scripts');
 
 const latestVersion = require('./source/get-latest-version');
-const version = require('./source/get-this-version');
+const currentVersion = require('./source/get-this-version');
 const getConfig = require('./source/get-config');
 const lib = require('./source/get-components-from-library');
-const printHelp = require('./source/print-help');
+const messages = require('./source/messages');
 const [command, arg1, arg2] = process.argv.slice(2);
 
 const supportedCommands = {
@@ -29,28 +28,15 @@ const supportedCommands = {
 };
 
 if (process.argv.includes('--version') || process.argv.includes('-v')) {
-  console.log(version);
+  messages.version(currentVersion);
   process.exit(0);
 }
 
-if (latestVersion && version !== latestVersion) {
-  console.log(
-    `🦄  ${chalk.greenBright(
-      `You are using version ${chalk.blueBright(
-        version
-      )}, but the latest version is ${chalk.blueBright(latestVersion)}.`
-    )}`
-  );
-  console.log(
-    `👩‍💻  Run ${chalk.blueBright('yarn global add @creuna/cli')} or ${chalk.cyan(
-      'npm i -g @creuna/cli'
-    )} to get the latest version.`
-  );
-  console.log('');
-}
+let shouldExit = false;
 
 if (!command) {
-  printHelp();
+  messages.help();
+  shouldExit = true;
 } else if (command === supportedCommands.new) {
   // 'new' does not require .creunarc.json
   newProject();
@@ -83,21 +69,25 @@ if (!command) {
           break;
         default:
           // NOTE: This should never happen
-          printHelp();
+          messages.help();
+          shouldExit = true;
           break;
       }
     })
-    .catch(error => {
-      console.log(
-        `😱 ${chalk.redBright(
-          'Error reading configuration file'
-        )} ${chalk.blueBright('.creunarc.json')}${chalk.redBright(
-          '. See https://github.com/Creuna-Oslo/cli'
-        )}`
-      );
+    .catch(() => {
+      messages.errorReadingConfig();
+      shouldExit = true;
     });
 } else {
-  // NOTE: Unrecognized command
-  console.log(`😱  Unrecognized command "${chalk.redBright(command)}".`);
-  printHelp();
+  messages.unrecognizedCommand(command);
+  messages.help();
+  shouldExit = true;
+}
+
+if (latestVersion && currentVersion !== latestVersion) {
+  messages.versionConflict(currentVersion, latestVersion);
+}
+
+if (shouldExit) {
+  process.exit(0);
 }

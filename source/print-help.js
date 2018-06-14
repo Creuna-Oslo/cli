@@ -1,7 +1,11 @@
 /* eslint-env node */
 /* eslint-disable no-console */
 /* eslint-disable no-useless-escape */
+const path = require('path');
 const chalk = require('chalk');
+const termImg = require('term-img');
+
+const logoFallback = require('./logo-fallback');
 
 const blue = chalk.blueBright;
 const bold = chalk.bold;
@@ -59,13 +63,13 @@ const printLineCommand = ({ args, name, description }) => {
 };
 
 module.exports = function() {
+  termImg(path.join(__dirname, 'creuna.png'), {
+    fallback: () => {
+      console.log(logoFallback);
+    }
+  });
+
   console.log(`
-   ___                        
-  / __|_ _ ___ _  _ _ _  __ _ 
- | (__| '_/ -_) || | ' \\/ _' |
-  \\___|_| \\___|\\_,_|_||_\\__,_|
-
-
 ${bold('Usage:')} creuna ${blue('<command>')}
 
 ${bold('Commands:')}

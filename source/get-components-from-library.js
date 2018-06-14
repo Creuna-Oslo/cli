@@ -1,15 +1,14 @@
 /* eslint-env node */
-/* eslint-disable no-console */
-const chalk = require('chalk');
 const { ensureDirSync } = require('fs-extra');
 const fs = require('fs');
 const path = require('path');
 
+const messages = require('./messages');
 const selectComponents = require('./select-components');
 const readGhPath = require('./read-github-path');
 
 module.exports = async function(localComponentsPath) {
-  console.log('🕵  Finding components');
+  messages.searchingForComponents();
 
   const componentNames = await readGhPath('components').then(componentPaths =>
     // Remove first slug ('components/')
@@ -17,18 +16,16 @@ module.exports = async function(localComponentsPath) {
   );
   const selectedComponents = await selectComponents(componentNames);
 
-  console.log(''); // Whitespace
+  messages.emptyLine();
 
   if (selectedComponents.length === 0) {
-    console.log(chalk.redBright('No components selected. Exiting.'));
+    messages.noComponentsSelected();
     process.exit(1);
   }
 
   const filteredComponents = selectedComponents.filter(componentName => {
     if (fs.existsSync(path.join(localComponentsPath, componentName))) {
-      console.log(
-        `☠️  ${componentName} ${chalk.redBright('already exists. Skipping.')}`
-      );
+      messages.componentAlreadyExists(componentName);
       return false;
     }
 
@@ -36,13 +33,13 @@ module.exports = async function(localComponentsPath) {
   }, []);
 
   if (filteredComponents.length === 0) {
-    console.log(`😐  ${chalk.redBright('No components to write. Exiting')}`);
+    messages.noComponentsToWrite();
     process.exit(0);
   }
 
   const filteredPaths = filteredComponents.map(name => `components/${name}`);
 
-  console.log('⬇️  Downloading components');
+  messages.downloadingComponents();
 
   const allFilePaths = await Promise.all(
     filteredPaths.map(componentPath => readGhPath(componentPath))
@@ -57,11 +54,11 @@ module.exports = async function(localComponentsPath) {
     }))
   );
 
-  console.log('💾  Writing files');
+  messages.writingFiles();
 
   allFiles.forEach(file => {
     if (!file) {
-      console.log(chalk.redBright('⁉️  Missing file'));
+      messages.missingFile();
       return;
     }
 
@@ -77,7 +74,7 @@ module.exports = async function(localComponentsPath) {
     fs.writeFileSync(filePath, content);
   });
 
-  console.log('🎉  Components added!');
+  messages.componentsAdded();
 
   process.exit(0);
 };
