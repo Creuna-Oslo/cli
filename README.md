@@ -1,4 +1,7 @@
-# cli
+# ![Creuna CLI](source/creuna.png?raw=true "Creuna CLI")
+
+[![npm version](https://img.shields.io/npm/v/@creuna/cli.svg?style=flat)](https://www.npmjs.com/package/@creuna/cli)
+[![Travis status](https://img.shields.io/travis/Creuna-Oslo/cli.svg?style=flat)](https://travis-ci.org/Creuna-Oslo/cli)
 
 `@creuna/cli` provides a unified interface for:
 
