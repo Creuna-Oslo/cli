@@ -1,7 +1,9 @@
 /* eslint-env node */
 /* eslint-disable no-console */
 /* eslint-disable no-useless-escape */
+const path = require('path');
 const chalk = require('chalk');
+const termImg = require('term-img');
 
 const blue = chalk.blueBright;
 const bold = chalk.bold;
@@ -58,14 +60,23 @@ const printLineCommand = ({ args, name, description }) => {
   return ` • ${blue(name)} ${cyan(args)} ${padding}  ${description}\n`;
 };
 
+const imageFallback = () => {
+  const name = 'Creuna CLI';
+  const colors = [
+    '#fea3aa',
+    '#f8b88b',
+    '#faf884',
+    '#baed91',
+    '#b2cefe',
+    '#f2a2e8'
+  ];
+  console.log(colors.map(color => chalk.hex(color)(name)).join(' '));
+};
+
 module.exports = function() {
+  termImg(path.join(__dirname, 'creuna.png'), { fallback: imageFallback });
+
   console.log(`
-   ___                        
-  / __|_ _ ___ _  _ _ _  __ _ 
- | (__| '_/ -_) || | ' \\/ _' |
-  \\___|_| \\___|\\_,_|_||_\\__,_|
-
-
 ${bold('Usage:')} creuna ${blue('<command>')}
 
 ${bold('Commands:')}
