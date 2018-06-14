@@ -5,6 +5,8 @@ const path = require('path');
 const chalk = require('chalk');
 const termImg = require('term-img');
 
+const logoFallback = require('./logo-fallback');
+
 const blue = chalk.blueBright;
 const bold = chalk.bold;
 const cyan = chalk.cyan;
@@ -60,21 +62,12 @@ const printLineCommand = ({ args, name, description }) => {
   return ` • ${blue(name)} ${cyan(args)} ${padding}  ${description}\n`;
 };
 
-const imageFallback = () => {
-  const name = 'Creuna CLI';
-  const colors = [
-    '#fea3aa',
-    '#f8b88b',
-    '#faf884',
-    '#baed91',
-    '#b2cefe',
-    '#f2a2e8'
-  ];
-  console.log(colors.map(color => chalk.hex(color)(name)).join(' '));
-};
-
 module.exports = function() {
-  termImg(path.join(__dirname, 'creuna.png'), { fallback: imageFallback });
+  termImg(path.join(__dirname, 'creuna.png'), {
+    fallback: () => {
+      console.log(logoFallback);
+    }
+  });
 
   console.log(`
 ${bold('Usage:')} creuna ${blue('<command>')}
