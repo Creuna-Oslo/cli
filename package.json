@@ -1,6 +1,6 @@
 {
   "name": "@creuna/cli",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Creuna command line tools",
   "main": "index.js",
   "scripts": {
@@ -27,7 +27,7 @@
   "license": "MIT",
   "dependencies": {
     "@creuna/create-react-app": "^1.1.1",
-    "@creuna/react-scripts": "^1.1.1",
+    "@creuna/react-scripts": "^1.1.2",
     "chalk": "^2.4.1",
     "configstore": "^3.1.2",
     "find-up": "^2.1.0",
