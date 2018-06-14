@@ -1,6 +1,6 @@
 /* eslint-env node */
 /* eslint-disable no-console */
-const chalk = require('chalk');
+const messages = require('./messages');
 
 module.exports = function(componentNames) {
   // Has to be required when called, or else 'shell-select' will initialize early and make everything behave weirdly
@@ -17,8 +17,7 @@ module.exports = function(componentNames) {
   });
 
   return new Promise(resolve => {
-    console.log(chalk.bold('Select components'));
-    console.log(chalk.dim('Spacebar to select, ESC to abort\n'));
+    messages.selectComponents();
 
     componentNames.forEach(name => {
       list.option(name);
@@ -31,7 +30,7 @@ module.exports = function(componentNames) {
     });
 
     list.on('cancel', () => {
-      console.log(chalk.redBright('Cancelled. Exiting.'));
+      messages.selectComponentsCancel();
       process.exit(0);
     });
   });
