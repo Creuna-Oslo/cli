@@ -136,7 +136,11 @@ const noComponentsSelected = () => {
 
 const selectComponents = () => {
   console.log(chalk.bold('Select components'));
-  console.log(chalk.dim('Spacebar to select, ESC to abort\n'));
+  console.log(
+    `Use ${blue('[Spacebar]')} to select and deselect, ${blue(
+      '[Enter]'
+    )} to download selected, ${blue('[ESC]')} to abort\n`
+  );
 };
 
 const selectComponentsCancel = () => {
