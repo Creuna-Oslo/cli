@@ -1,9 +1,16 @@
 const request = require('request');
 const semver = require('semver');
 
+const canConnect = require('./can-connect');
 const configstore = require('./configstore');
 
-function fetchLatestVersion(currentVersion, onNewVersion) {
+async function fetchLatestVersion(currentVersion, onNewVersion) {
+  const canConnectToNPM = await canConnect('registry.npm.org');
+
+  if (!canConnectToNPM) {
+    return;
+  }
+
   request(
     {
       url: 'https://registry.npmjs.org/@creuna/cli',

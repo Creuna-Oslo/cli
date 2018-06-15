@@ -6,9 +6,8 @@ module.exports = function(componentNames) {
   // Has to be required when called, or else 'shell-select' will initialize early and make everything behave weirdly
   const list = require('select-shell')({
     pointer: ' ➤ ',
-    pointerColor: 'black',
-    checked: '● ',
-    unchecked: '○ ',
+    checked: ' ● ',
+    unchecked: ' ○ ',
     checkedColor: 'cyan',
     uncheckedColor: 'cyan',
     msgCancel: '',
@@ -17,6 +16,7 @@ module.exports = function(componentNames) {
   });
 
   return new Promise(resolve => {
+    messages.emptyLine();
     messages.selectComponents();
 
     componentNames.forEach(name => {
@@ -30,7 +30,9 @@ module.exports = function(componentNames) {
     });
 
     list.on('cancel', () => {
+      messages.emptyLine();
       messages.selectComponentsCancel();
+      messages.emptyLine();
       process.exit(0);
     });
   });
