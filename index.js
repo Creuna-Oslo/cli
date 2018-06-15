@@ -9,9 +9,11 @@ const {
   toStateful,
   toStateless
 } = require('@creuna/react-scripts');
+const semver = require('semver');
 
-const fetchLatestVersion = require('./source/fetch-latest-version');
+const configstore = require('./source/configstore');
 const currentVersion = require('./source/get-this-version');
+const fetchLatestVersion = require('./source/fetch-latest-version');
 const getConfig = require('./source/get-config');
 const lib = require('./source/get-components-from-library');
 const messages = require('./source/messages');
@@ -31,6 +33,8 @@ if (process.argv.includes('--version') || process.argv.includes('-v')) {
   messages.version(currentVersion);
   process.exit(0);
 }
+
+fetchLatestVersion();
 
 let shouldExit = false;
 
@@ -84,9 +88,12 @@ if (!command) {
   shouldExit = true;
 }
 
-fetchLatestVersion(currentVersion, (currentVersion, latestVersion) => {
+const latestVersion = configstore.get('latestVersion');
+if (latestVersion && semver.gt(latestVersion, currentVersion)) {
+  messages.emptyLine();
   messages.versionConflict(currentVersion, latestVersion);
-});
+  messages.emptyLine();
+}
 
 if (shouldExit) {
   process.exit(0);

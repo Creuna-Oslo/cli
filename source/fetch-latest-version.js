@@ -1,10 +1,9 @@
 const request = require('request');
-const semver = require('semver');
 
 const canConnect = require('./can-connect');
 const configstore = require('./configstore');
 
-async function fetchLatestVersion(currentVersion, onNewVersion) {
+async function fetchLatestVersion() {
   const canConnectToNPM = await canConnect('registry.npm.org');
 
   if (!canConnectToNPM) {
@@ -25,15 +24,7 @@ async function fetchLatestVersion(currentVersion, onNewVersion) {
       }
 
       try {
-        const latestVersion = JSON.parse(body)['dist-tags'].latest;
-        configstore.set('latestVersion', latestVersion);
-
-        if (
-          typeof onNewVersion === 'function' &&
-          semver.gt(latestVersion, currentVersion)
-        ) {
-          onNewVersion(currentVersion, latestVersion);
-        }
+        configstore.set('latestVersion', JSON.parse(body)['dist-tags'].latest);
       } catch (error) {
         // NOTE: Noop because we don't really care and there is no graceful fallback
       }
