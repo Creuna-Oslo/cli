@@ -4,6 +4,7 @@ const chalk = require('chalk');
 const path = require('path');
 const termImg = require('term-img');
 
+const emoji = require('./emoji');
 const logoFallback = require('./logo-fallback');
 
 const blue = chalk.blueBright;
@@ -12,7 +13,7 @@ const cyan = chalk.cyan;
 
 const errorReadingConfig = () => {
   console.log(
-    `😱  ${chalk.redBright(
+    `${emoji('😱', '✗')} ${chalk.redBright(
       'Error reading configuration file'
     )} ${chalk.blueBright('.creunarc.json')}${chalk.redBright(
       '. See https://github.com/Creuna-Oslo/cli'
@@ -65,16 +66,18 @@ const longestCommandLength = commands.reduce(
 
 const componentAlreadyExists = componentName => {
   console.log(
-    `☠️  ${componentName} ${chalk.redBright('already exists. Skipping.')}`
+    `${emoji('☠️', '✗')} ${componentName} ${chalk.redBright(
+      'already exists. Skipping.'
+    )}`
   );
 };
 
 const componentsAdded = () => {
-  console.log('🎉  Components added!');
+  console.log(`${emoji('🎉', '✔')} Components added!`);
 };
 
 const downloadingComponents = () => {
-  console.log('⬇️  Downloading components');
+  console.log(`${emoji('⬇️', 'ℹ︎')}  Downloading components`);
 };
 
 const emptyLine = () => {
@@ -86,12 +89,14 @@ const printLineCommand = ({ args, name, description }) => {
     longestCommandLength - (name.length + args.length)
   );
 
-  return `👉  ${blue(name)} ${cyan(args)} ${padding}  ${description}\n`;
+  return `${emoji('👉', '•')} ${blue(name)} ${cyan(
+    args
+  )} ${padding}  ${description}\n`;
 };
 
 const gitHubReadError = () => {
   console.log(
-    `🙀  ${chalk.redBright("Oh no! Couldn't get files!")}
+    `${emoji('🙀', '✗')} ${chalk.redBright("Oh no! Couldn't get files!")}
 This likely means that the hourly GitHub API quota has been exceeded.
 You should let ${chalk.blueBright('asbjorn.hegdahl@creuna.no')} know ASAP.`
   );
@@ -99,7 +104,7 @@ You should let ${chalk.blueBright('asbjorn.hegdahl@creuna.no')} know ASAP.`
 
 const githubRequestTimeout = () => {
   console.log(
-    `😩  ${chalk.redBright(
+    `${emoji('😩', '✗')} ${chalk.redBright(
       "Couldn't connect to GitHub. Make sure you're connected to the interwebs!"
     )}`
   );
@@ -115,19 +120,23 @@ const help = () => {
   console.log(`${bold('Usage:')} creuna ${blue('<command>')}\n`);
   console.log(bold('Commands:'));
   console.log(commands.map(printLineCommand).join(''));
-  console.log(`🌈  All command ${cyan('<arguments>')} are optional\n`);
+  console.log(
+    `${emoji('🌈', 'ℹ︎')} All command ${cyan('<arguments>')} are optional\n`
+  );
 };
 
 const missingFile = () => {
-  console.log(chalk.redBright('⁉️  Missing file'));
+  console.log(chalk.redBright(`${emoji('⁉️', '✗')} Missing file`));
 };
 
 const noComponentsToWrite = () => {
-  console.log(`😐  ${chalk.redBright('No components to write. Exiting')}`);
+  console.log(
+    `${emoji('😐', '✗')} ${chalk.redBright('No components to write. Exiting')}`
+  );
 };
 
 const searchingForComponents = () => {
-  console.log('🕵  Searching for components');
+  console.log(`${emoji('🕵', 'ℹ︎')} Searching for components`);
 };
 
 const noComponentsSelected = () => {
@@ -148,7 +157,9 @@ const selectComponentsCancel = () => {
 };
 
 const unrecognizedCommand = command => {
-  console.log(`😱  Unrecognized command "${chalk.redBright(command)}".`);
+  console.log(
+    `${emoji('😱', '✗')} Unrecognized command "${chalk.redBright(command)}".`
+  );
 };
 
 const version = versionNumber => {
@@ -157,21 +168,21 @@ const version = versionNumber => {
 
 const versionConflict = (currentVersion, latestVersion) => {
   console.log(
-    `🦄  ${chalk.greenBright(
+    `${emoji('🦄', '︎︎ℹ︎︎')} ${chalk.greenBright(
       `You are using version ${chalk.blueBright(
         currentVersion
       )}, but the latest version is ${chalk.blueBright(latestVersion)}.`
     )}`
   );
   console.log(
-    `👩‍💻  Run ${chalk.blueBright('yarn global add @creuna/cli')} or ${chalk.cyan(
-      'npm i -g @creuna/cli'
-    )} to get the latest version.`
+    `${emoji('👩‍💻')} Run ${chalk.blueBright(
+      'yarn global add @creuna/cli'
+    )} or ${chalk.cyan('npm i -g @creuna/cli')} to get the latest version.`
   );
 };
 
 const writingFiles = () => {
-  console.log('💾  Writing files');
+  console.log(`${emoji('💾', 'ℹ︎')} Writing files`);
 };
 
 module.exports = {
