@@ -13,9 +13,11 @@ const semver = require('semver');
 
 const configstore = require('./source/configstore');
 const currentVersion = require('./source/get-this-version');
+const emoji = require('./source/emoji');
 const fetchLatestVersion = require('./source/fetch-latest-version');
 const getConfig = require('./source/get-config');
 const lib = require('./source/get-components-from-library');
+const maybeWriteVSCodeTasks = require('./source/maybe-write-vscode-tasks');
 const messages = require('./source/messages');
 const [command, arg1, arg2] = process.argv.slice(2);
 
@@ -43,7 +45,14 @@ if (!command) {
   shouldExit = true;
 } else if (command === supportedCommands.new) {
   // 'new' does not require .creunarc.json
-  newProject();
+  newProject(arg1, (buildPath, messageList) => {
+    maybeWriteVSCodeTasks(buildPath).then(() => {
+      messages.emptyLine();
+      messageList.forEach(message => {
+        console.log(`${emoji(message.emoji)} ${message.text}`);
+      });
+    });
+  });
 } else if (Object.values(supportedCommands).includes(command)) {
   // All other commands require .creunarc.json to run
   getConfig()
