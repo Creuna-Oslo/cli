@@ -45,12 +45,14 @@ if (!command) {
   shouldExit = true;
 } else if (command === supportedCommands.new) {
   // 'new' does not require .creunarc.json
-  newProject(arg1, (buildPath, messageList) => {
-    maybeWriteVSCodeTasks(buildPath).then(() => {
-      messages.emptyLine();
-      messageList.forEach(message => {
-        console.log(`${emoji(message.emoji)} ${message.text}`);
-      });
+  const { emptyLine } = messages;
+
+  newProject(arg1).then(async ({ buildDir, messages }) => {
+    await maybeWriteVSCodeTasks(buildDir);
+
+    emptyLine();
+    messages.forEach(message => {
+      console.log(`${emoji(message.emoji)} ${message.text}`);
     });
   });
 } else if (Object.values(supportedCommands).includes(command)) {
