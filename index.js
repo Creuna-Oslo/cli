@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* eslint-env node */
 /* eslint-disable no-console */
-const newProject = require('@creuna/create-react-app');
+const appCreator = require('@creuna/create-react-app');
 const {
   newComponent,
   newPage,
@@ -45,16 +45,18 @@ if (!command) {
   shouldExit = true;
 } else if (command === supportedCommands.new) {
   // 'new' does not require .creunarc.json
-  const { emptyLine } = messages;
+  const _messages = messages;
 
-  newProject(arg1).then(async ({ buildDir, messages }) => {
-    await maybeWriteVSCodeTasks(buildDir);
+  appCreator
+    .canWriteFiles(arg1)
+    .then(() => appCreator.writeFiles(arg1))
+    .then(async ({ buildDir, messages }) => {
+      await maybeWriteVSCodeTasks(buildDir);
 
-    emptyLine();
-    messages.forEach(message => {
-      console.log(`${emoji(message.emoji)} ${message.text}`);
-    });
-  });
+      _messages.emptyLine();
+      _messages.messageList(messages);
+    })
+    .catch(messages.error);
 } else if (Object.values(supportedCommands).includes(command)) {
   // All other commands require .creunarc.json to run
   getConfig()

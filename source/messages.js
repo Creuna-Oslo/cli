@@ -84,6 +84,16 @@ const emptyLine = () => {
   console.log('');
 };
 
+const error = text => {
+  console.log(`${emoji('❌', '✗')} ${chalk.redBright(text)}`);
+};
+
+const messageList = messages => {
+  messages.forEach(message => {
+    console.log(`${emoji(message.emoji)} ${message.text}`);
+  });
+};
+
 const printLineCommand = ({ args, name, description }) => {
   const padding = new String(' ').repeat(
     longestCommandLength - (name.length + args.length)
@@ -190,10 +200,12 @@ module.exports = {
   componentsAdded,
   downloadingComponents,
   emptyLine,
+  error,
   errorReadingConfig,
   gitHubReadError,
   githubRequestTimeout,
   help,
+  messageList,
   missingFile,
   noComponentsSelected,
   noComponentsToWrite,
