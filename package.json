@@ -1,6 +1,6 @@
 {
   "name": "@creuna/cli",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Creuna command line tools",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,9 @@
   },
   "files": [
     "index.js",
-    "source"
+    "source",
+    "LICENSE",
+    "README.md"
   ],
   "author": "Asbjørn Hegdahl <asbjorn.hegdahl@creuna.no>",
   "contributors": [
@@ -26,9 +28,9 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@creuna/create-react-app": "^1.2.1",
+    "@creuna/create-react-app": "^2.0.0",
     "@creuna/prompt": "^1.0.1",
-    "@creuna/react-scripts": "^1.1.3",
+    "@creuna/react-scripts": "^1.1.5",
     "chalk": "^2.4.1",
     "configstore": "^3.1.2",
     "find-up": "^2.1.0",

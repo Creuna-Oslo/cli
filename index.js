@@ -13,9 +13,9 @@ const semver = require('semver');
 
 const configstore = require('./source/configstore');
 const currentVersion = require('./source/get-this-version');
-const emoji = require('./source/emoji');
 const fetchLatestVersion = require('./source/fetch-latest-version');
 const getConfig = require('./source/get-config');
+const getNewAppInput = require('./source/get-new-app-input');
 const lib = require('./source/get-components-from-library');
 const maybeWriteVSCodeTasks = require('./source/maybe-write-vscode-tasks');
 const messages = require('./source/messages');
@@ -49,7 +49,10 @@ if (!command) {
 
   appCreator
     .canWriteFiles(arg1)
-    .then(() => appCreator.writeFiles(arg1))
+    .then(() => getNewAppInput())
+    .then(answers =>
+      appCreator.writeFiles(Object.assign({}, answers, { projectPath: arg1 }))
+    )
     .then(async ({ buildDir, messages }) => {
       await maybeWriteVSCodeTasks(buildDir);
 

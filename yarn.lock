@@ -204,11 +204,10 @@
   dependencies:
     arrify "^1.0.1"
 
-"@creuna/create-react-app@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@creuna/create-react-app/-/create-react-app-1.2.1.tgz#0400b9df79e9a83798dda5414620c1158d2f998b"
+"@creuna/create-react-app@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@creuna/create-react-app/-/create-react-app-2.0.0.tgz#e0ae63e5dee76d79e97bf8f70493d04ad5ae569e"
   dependencies:
-    "@creuna/prompt" "^1.0.0"
     chalk "^2.1.0"
     fs-extra "^6.0.1"
     lodash "^4.17.4"
@@ -230,9 +229,9 @@
     lodash "^4.17.10"
     readline "^1.3.0"
 
-"@creuna/react-scripts@^1.1.3":
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/@creuna/react-scripts/-/react-scripts-1.1.3.tgz#62b01390305966464ec62b41714a23ac74d567d2"
+"@creuna/react-scripts@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@creuna/react-scripts/-/react-scripts-1.1.5.tgz#42143f88b1535b7cf9676d18e0f8a26d2f260dd3"
   dependencies:
     "@babel/generator" "^7.0.0-beta.49"
     "@babel/parser" "^7.0.0-beta.48"
