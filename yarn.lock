@@ -201,12 +201,11 @@
     arrify "^1.0.1"
 
 "@creuna/create-react-app@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@creuna/create-react-app/-/create-react-app-2.0.0.tgz#e0ae63e5dee76d79e97bf8f70493d04ad5ae569e"
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@creuna/create-react-app/-/create-react-app-2.0.1.tgz#26a2dea6a56540bf02e641243c45f06f4237692e"
   dependencies:
     chalk "^2.1.0"
     fs-extra "^6.0.1"
-    lodash "^4.17.4"
     prettier "^1.9.2"
 
 "@creuna/prompt@^1.0.0", "@creuna/prompt@^1.0.1":
