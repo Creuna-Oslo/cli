@@ -1,5 +1,12 @@
 #!/usr/bin/env node
 /* eslint-env node */
+const messages = require('./source/messages');
+const [command, arg1, arg2] = process.argv.slice(2);
+
+if (!command) {
+  messages.help();
+}
+
 const appCreator = require('@creuna/create-react-app');
 const semver = require('semver');
 
@@ -10,11 +17,8 @@ const getConfig = require('./source/get-config');
 const getNewAppInput = require('./source/get-new-app-input');
 const lib = require('./source/get-components-from-library');
 const maybeWriteVSCodeTasks = require('./source/maybe-write-vscode-tasks');
-const messages = require('./source/messages');
 const runReactScript = require('./source/run-react-script');
 const supportedCommands = require('./source/supported-commands');
-
-const [command, arg1, arg2] = process.argv.slice(2);
 
 if (process.argv.includes('--version') || process.argv.includes('-v')) {
   messages.version(currentVersion);
@@ -26,7 +30,6 @@ fetchLatestVersion();
 let shouldExit = false;
 
 if (!command) {
-  messages.help();
   shouldExit = true;
 } else if (command === supportedCommands.new) {
   // 'new' does not require .creunarc.json
