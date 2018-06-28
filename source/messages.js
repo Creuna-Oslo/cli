@@ -85,7 +85,9 @@ const emptyLine = () => {
 };
 
 const error = text => {
-  console.log(`${emoji('❌', '✗')} ${chalk.redBright(text)}`);
+  emptyLine();
+  console.log(`${emoji('❌', '✖︎')} ${chalk.redBright(text)}`);
+  emptyLine();
 };
 
 const messageList = messages => {
