@@ -3213,9 +3213,9 @@ sax@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
 
-select-shell@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/select-shell/-/select-shell-1.0.0.tgz#9e72147aa9ffc67cb43b1163159e55822381b03f"
+select-shell@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/select-shell/-/select-shell-1.1.2.tgz#b9bf5fe5850f1a53b190606aa1b0a48b39079c44"
   dependencies:
     colors "~0.6.2"
 
