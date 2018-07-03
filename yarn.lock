@@ -1404,9 +1404,9 @@ safe-buffer@^5.0.1, safe-buffer@^5.1.1, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
 
-select-shell@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/select-shell/-/select-shell-1.0.1.tgz#8284597fb35cf61b4190ff20a62c5b2eb127133e"
+select-shell@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/select-shell/-/select-shell-1.1.2.tgz#b9bf5fe5850f1a53b190606aa1b0a48b39079c44"
   dependencies:
     colors "~0.6.2"
 

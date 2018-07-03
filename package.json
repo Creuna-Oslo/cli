@@ -38,7 +38,7 @@
     "gradient-string": "^1.1.0",
     "octonode": "^0.9.2",
     "request": "^2.87.0",
-    "select-shell": "^1.0.0",
+    "select-shell": "^1.1.2",
     "semver": "^5.5.0",
     "term-img": "^2.1.0"
   },
