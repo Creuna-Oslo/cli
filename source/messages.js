@@ -13,7 +13,7 @@ const cyan = chalk.cyan;
 
 const errorReadingConfig = () => {
   console.log(
-    `${emoji('😱', '✗')} ${chalk.redBright(
+    `${emoji('😱', '×')} ${chalk.redBright(
       'Error reading configuration file'
     )} ${chalk.blueBright('.creunarc.json')}${chalk.redBright(
       '. See https://github.com/Creuna-Oslo/cli'
@@ -66,18 +66,18 @@ const longestCommandLength = commands.reduce(
 
 const componentAlreadyExists = componentName => {
   console.log(
-    `${emoji('☠️', '✗')} ${componentName} ${chalk.redBright(
+    `${emoji('☠️', '×')} ${componentName} ${chalk.redBright(
       'already exists. Skipping.'
     )}`
   );
 };
 
 const componentsAdded = () => {
-  console.log(`${emoji('🎉', '✔')} Components added!`);
+  console.log(`${emoji('🎉', '♥')} Components added!`);
 };
 
 const downloadingComponents = () => {
-  console.log(`${emoji('⬇️', 'ℹ︎')}  Downloading components`);
+  console.log(`${emoji('⬇️')}  Downloading components`);
 };
 
 const emptyLine = () => {
@@ -96,7 +96,7 @@ const printLineCommand = ({ args, name, description }) => {
 
 const gitHubReadError = () => {
   console.log(
-    `${emoji('🙀', '✗')} ${chalk.redBright("Oh no! Couldn't get files!")}
+    `${emoji('🙀', '×')} ${chalk.redBright("Oh no! Couldn't get files!")}
 This likely means that the hourly GitHub API quota has been exceeded.
 You should let ${chalk.blueBright('asbjorn.hegdahl@creuna.no')} know ASAP.`
   );
@@ -104,7 +104,7 @@ You should let ${chalk.blueBright('asbjorn.hegdahl@creuna.no')} know ASAP.`
 
 const githubRequestTimeout = () => {
   console.log(
-    `${emoji('😩', '✗')} ${chalk.redBright(
+    `${emoji('😩', '×')} ${chalk.redBright(
       "Couldn't connect to GitHub. Make sure you're connected to the interwebs!"
     )}`
   );
@@ -121,22 +121,22 @@ const help = () => {
   console.log(bold('Commands:'));
   console.log(commands.map(printLineCommand).join(''));
   console.log(
-    `${emoji('🌈', 'ℹ︎')} All command ${cyan('<arguments>')} are optional\n`
+    `${emoji('🌈', '♥')} All command ${cyan('<arguments>')} are optional\n`
   );
 };
 
 const missingFile = () => {
-  console.log(chalk.redBright(`${emoji('⁉️', '✗')} Missing file`));
+  console.log(chalk.redBright(`${emoji('⁉️', '×')} Missing file`));
 };
 
 const noComponentsToWrite = () => {
   console.log(
-    `${emoji('😐', '✗')} ${chalk.redBright('No components to write. Exiting')}`
+    `${emoji('😐', '×')} ${chalk.redBright('No components to write. Exiting')}`
   );
 };
 
 const searchingForComponents = () => {
-  console.log(`${emoji('🕵', 'ℹ︎')} Searching for components`);
+  console.log(`${emoji('🕵')} Searching for components`);
 };
 
 const noComponentsSelected = () => {
@@ -158,7 +158,7 @@ const selectComponentsCancel = () => {
 
 const unrecognizedCommand = command => {
   console.log(
-    `${emoji('😱', '✗')} Unrecognized command "${chalk.redBright(command)}".`
+    `${emoji('😱', '×')} Unrecognized command "${chalk.redBright(command)}".`
   );
 };
 
@@ -168,7 +168,7 @@ const version = versionNumber => {
 
 const versionConflict = (currentVersion, latestVersion) => {
   console.log(
-    `${emoji('🦄', '︎︎ℹ︎︎')} ${chalk.greenBright(
+    `${emoji('🦄', '︎︎♥')} ${chalk.greenBright(
       `You are using version ${chalk.blueBright(
         currentVersion
       )}, but the latest version is ${chalk.blueBright(latestVersion)}.`
@@ -182,7 +182,7 @@ const versionConflict = (currentVersion, latestVersion) => {
 };
 
 const writingFiles = () => {
-  console.log(`${emoji('💾', 'ℹ︎')} Writing files`);
+  console.log(`${emoji('💾')} Writing files`);
 };
 
 module.exports = {

@@ -77,7 +77,7 @@ module.exports = async function(localComponentsPath) {
       localComponentsPath,
       file.path.replace('/', path.sep)
     );
-    const directory = filePath.substring(0, filePath.lastIndexOf('/'));
+    const directory = filePath.substring(0, filePath.lastIndexOf(path.sep));
     ensureDirSync(directory);
     fs.writeFileSync(filePath, content);
   });
