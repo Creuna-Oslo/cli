@@ -15,7 +15,7 @@ module.exports = async function(localComponentsPath) {
   const canConnectToGitHub = await canConnect('www.github.com');
 
   if (!canConnectToGitHub) {
-    messages.githubRequestTimeout();
+    messages.gitHubRequestTimeout();
     messages.emptyLine();
     process.exit(1);
   }

@@ -8,9 +8,9 @@ const repo = client.repo('Creuna-Oslo/react-components');
 
 module.exports = function(path) {
   return new Promise(resolve => {
-    repo.contents(path, (err, response) => {
-      if (err) {
-        messages.githubReadError();
+    repo.contents(path, (error, response) => {
+      if (error) {
+        messages.gitHubReadError(error);
         process.exit(1);
       }
 

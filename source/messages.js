@@ -106,15 +106,16 @@ const printLineCommand = ({ args, name, description }) => {
   )} ${padding}  ${description}\n`;
 };
 
-const gitHubReadError = () => {
+const gitHubReadError = error => {
   console.log(
     `${emoji('🙀', '×')} ${chalk.redBright("Oh no! Couldn't get files!")}
-This likely means that the hourly GitHub API quota has been exceeded.
-You should let ${chalk.blueBright('asbjorn.hegdahl@creuna.no')} know ASAP.`
+You should let ${chalk.blueBright(
+      'asbjorn.hegdahl@creuna.no'
+    )} know ASAP.\n${error}`
   );
 };
 
-const githubRequestTimeout = () => {
+const gitHubRequestTimeout = () => {
   console.log(
     `${emoji('😩', '×')} ${chalk.redBright(
       "Couldn't connect to GitHub. Make sure you're connected to the interwebs!"
@@ -205,7 +206,7 @@ module.exports = {
   error,
   errorReadingConfig,
   gitHubReadError,
-  githubRequestTimeout,
+  gitHubRequestTimeout,
   help,
   messageList,
   missingFile,
