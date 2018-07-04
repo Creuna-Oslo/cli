@@ -8,6 +8,7 @@ if (!command) {
 }
 
 const appCreator = require('@creuna/create-react-app');
+const path = require('path');
 const semver = require('semver');
 
 const configstore = require('./source/configstore');
@@ -34,15 +35,16 @@ if (!command) {
 } else if (command === supportedCommands.new) {
   // 'new' does not require .creunarc.json
   const _messages = messages;
+  const projectPath = path.join(process.cwd(), arg1 || '');
 
   appCreator
-    .canWriteFiles(arg1)
+    .canWriteFiles(projectPath)
     .then(() => getNewAppInput())
     .then(answers =>
-      appCreator.writeFiles(Object.assign({}, answers, { projectPath: arg1 }))
+      appCreator.writeFiles(Object.assign({}, answers, { projectPath }))
     )
-    .then(async ({ buildDir, messages }) => {
-      await maybeWriteVSCodeTasks(buildDir);
+    .then(async ({ messages }) => {
+      await maybeWriteVSCodeTasks(projectPath);
 
       _messages.emptyLine();
       _messages.messageList(messages);

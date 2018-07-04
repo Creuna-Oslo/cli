@@ -24,8 +24,8 @@ const errorReadingConfig = () => {
 const commands = [
   {
     name: 'new',
-    args: '<path>',
-    description: 'Create new project'
+    args: '<relative-path>',
+    description: 'Create new project in current directory'
   },
   {
     name: 'lib',
