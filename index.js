@@ -1,33 +1,24 @@
 #!/usr/bin/env node
 /* eslint-env node */
-/* eslint-disable no-console */
-const newProject = require('@creuna/create-react-app');
-const {
-  newComponent,
-  newPage,
-  rename,
-  toStateful,
-  toStateless
-} = require('@creuna/react-scripts');
+const messages = require('./source/messages');
+const [command, arg1, arg2] = process.argv.slice(2);
+
+if (!command) {
+  messages.help();
+}
+
+const appCreator = require('@creuna/create-react-app');
 const semver = require('semver');
 
 const configstore = require('./source/configstore');
 const currentVersion = require('./source/get-this-version');
 const fetchLatestVersion = require('./source/fetch-latest-version');
 const getConfig = require('./source/get-config');
+const getNewAppInput = require('./source/get-new-app-input');
 const lib = require('./source/get-components-from-library');
-const messages = require('./source/messages');
-const [command, arg1, arg2] = process.argv.slice(2);
-
-const supportedCommands = {
-  component: 'component',
-  lib: 'lib',
-  new: 'new',
-  page: 'page',
-  rename: 'rename',
-  stateful: 'stateful',
-  stateless: 'stateless'
-};
+const maybeWriteVSCodeTasks = require('./source/maybe-write-vscode-tasks');
+const runReactScript = require('./source/run-react-script');
+const supportedCommands = require('./source/supported-commands');
 
 if (process.argv.includes('--version') || process.argv.includes('-v')) {
   messages.version(currentVersion);
@@ -39,44 +30,48 @@ fetchLatestVersion();
 let shouldExit = false;
 
 if (!command) {
-  messages.help();
   shouldExit = true;
 } else if (command === supportedCommands.new) {
   // 'new' does not require .creunarc.json
-  newProject();
+  const _messages = messages;
+
+  appCreator
+    .canWriteFiles(arg1)
+    .then(() => getNewAppInput())
+    .then(answers =>
+      appCreator.writeFiles(Object.assign({}, answers, { projectPath: arg1 }))
+    )
+    .then(async ({ buildDir, messages }) => {
+      await maybeWriteVSCodeTasks(buildDir);
+
+      _messages.emptyLine();
+      _messages.messageList(messages);
+      _messages.emptyLine();
+    })
+    .catch(messages.error);
 } else if (Object.values(supportedCommands).includes(command)) {
   // All other commands require .creunarc.json to run
   getConfig()
-    .then(({ componentsPath, mockupPath }) => {
-      switch (command) {
-        case supportedCommands.lib:
-          lib(componentsPath);
-          break;
-        case supportedCommands.component:
-          newComponent(
-            arg1,
-            process.argv.indexOf('-s') !== -1 ? true : undefined,
-            componentsPath
-          );
-          break;
-        case supportedCommands.page:
-          newPage(arg1, arg2, mockupPath);
-          break;
-        case supportedCommands.rename:
-          rename(arg1, arg2, componentsPath);
-          break;
-        case supportedCommands.stateful:
-          toStateful(arg1, componentsPath);
-          break;
-        case supportedCommands.stateless:
-          toStateless(arg1, componentsPath);
-          break;
-        default:
-          // NOTE: This should never happen
-          messages.help();
-          shouldExit = true;
-          break;
+    .then(({ componentsPath, eslintConfig, mockupPath }) => {
+      if (command === supportedCommands.lib) {
+        return lib(componentsPath);
       }
+
+      const _messages = messages;
+      return runReactScript({
+        arg1,
+        arg2,
+        eslintConfig,
+        command,
+        componentsPath,
+        mockupPath
+      })
+        .then(({ messages }) => {
+          _messages.emptyLine();
+          _messages.messageList(messages);
+          _messages.emptyLine();
+        })
+        .catch(messages.error);
     })
     .catch(() => {
       messages.errorReadingConfig();

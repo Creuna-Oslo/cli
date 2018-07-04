@@ -84,6 +84,18 @@ const emptyLine = () => {
   console.log('');
 };
 
+const error = text => {
+  emptyLine();
+  console.log(`${emoji('❌', '✖︎')} ${chalk.redBright(text)}`);
+  emptyLine();
+};
+
+const messageList = messages => {
+  messages.forEach(message => {
+    console.log(`${emoji(message.emoji)} ${message.text}`);
+  });
+};
+
 const printLineCommand = ({ args, name, description }) => {
   const padding = new String(' ').repeat(
     longestCommandLength - (name.length + args.length)
@@ -94,15 +106,16 @@ const printLineCommand = ({ args, name, description }) => {
   )} ${padding}  ${description}\n`;
 };
 
-const gitHubReadError = () => {
+const gitHubReadError = error => {
   console.log(
     `${emoji('🙀', '×')} ${chalk.redBright("Oh no! Couldn't get files!")}
-This likely means that the hourly GitHub API quota has been exceeded.
-You should let ${chalk.blueBright('asbjorn.hegdahl@creuna.no')} know ASAP.`
+You should let ${chalk.blueBright(
+      'asbjorn.hegdahl@creuna.no'
+    )} know ASAP.\n${error}`
   );
 };
 
-const githubRequestTimeout = () => {
+const gitHubRequestTimeout = () => {
   console.log(
     `${emoji('😩', '×')} ${chalk.redBright(
       "Couldn't connect to GitHub. Make sure you're connected to the interwebs!"
@@ -190,10 +203,12 @@ module.exports = {
   componentsAdded,
   downloadingComponents,
   emptyLine,
+  error,
   errorReadingConfig,
   gitHubReadError,
-  githubRequestTimeout,
+  gitHubRequestTimeout,
   help,
+  messageList,
   missingFile,
   noComponentsSelected,
   noComponentsToWrite,
