@@ -23,9 +23,47 @@ npm install -g @creuna/cli
 
 ### Usage
 
+Print help:
+
 ```
 creuna
 ```
+
+Run commands:
+
+```
+creuna <command>
+```
+
+### Commands
+
+#### new \<relative-path>
+
+Creates a new React app in the **current working directory**. If a `path` is provided, files will be written to this path, **relative** to the current working directory
+
+#### lib
+
+Select and download components from the React component library.
+
+#### component \<name>
+
+Create empty React component in your components folder.
+
+#### page \<name> \<human-readable-name>
+
+Create empty mockup page component in your mockup pages folder (Useful if you're working with an app created with the `new` command)
+
+### rename <old-name> <new-name>
+
+Rename React component. Supports absolute path or path relative to `componentsPath`.
+
+### stateful <component-name>
+
+Convert React component to stateful. Supports absolute path or path relative to `componentsPath`
+
+### stateless <component-name>
+
+Convert React component to stateless if able to. Supports absolute path or path relative to `componentsPath`
 
 ### Notes
 

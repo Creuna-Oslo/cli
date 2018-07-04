@@ -28,7 +28,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@creuna/create-react-app": "^2.0.0",
+    "@creuna/create-react-app": "^3.0.0",
     "@creuna/prompt": "^1.0.1",
     "@creuna/react-scripts": "^2.0.0",
     "chalk": "^2.4.1",

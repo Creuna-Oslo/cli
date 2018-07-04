@@ -158,9 +158,9 @@
     lodash "^4.17.5"
     to-fast-properties "^2.0.0"
 
-"@creuna/create-react-app@^2.0.0":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@creuna/create-react-app/-/create-react-app-2.0.1.tgz#26a2dea6a56540bf02e641243c45f06f4237692e"
+"@creuna/create-react-app@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@creuna/create-react-app/-/create-react-app-3.0.0.tgz#d6c572bded840ba2549b2d83f7478cd477d4cc73"
   dependencies:
     chalk "^2.1.0"
     fs-extra "^6.0.1"
