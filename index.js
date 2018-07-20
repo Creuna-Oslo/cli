@@ -19,7 +19,7 @@ const getNewAppInput = require('./source/get-new-app-input');
 const lib = require('./source/get-components-from-library');
 const maybeWriteVSCodeTasks = require('./source/maybe-write-vscode-tasks');
 const runReactScript = require('./source/run-react-script');
-const supportedCommands = require('./source/supported-commands');
+const supportedCommands = require('./source/commands').supportedCommands;
 
 if (process.argv.includes('--version') || process.argv.includes('-v')) {
   messages.version(currentVersion);

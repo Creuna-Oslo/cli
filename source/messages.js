@@ -6,7 +6,7 @@ const termImg = require('term-img');
 
 const emoji = require('./emoji');
 const logoFallback = require('./logo-fallback');
-
+const commands = require('./commands').commands;
 const blue = chalk.blueBright;
 const bold = chalk.bold;
 const cyan = chalk.cyan;
@@ -20,44 +20,6 @@ const errorReadingConfig = () => {
     )}`
   );
 };
-
-const commands = [
-  {
-    name: 'new',
-    args: '<relative-path>',
-    description: 'Create new project in current directory'
-  },
-  {
-    name: 'lib',
-    args: '',
-    description: 'Add a component from the library'
-  },
-  {
-    name: 'component',
-    args: '<name>',
-    description: 'Create new React component'
-  },
-  {
-    name: 'page',
-    args: '<name> <human-readable-name>',
-    description: 'Create new mockup page component'
-  },
-  {
-    name: 'rename',
-    args: '<old-name> <new-name>',
-    description: 'Rename React component'
-  },
-  {
-    name: 'stateful',
-    args: '<component-name>',
-    description: 'Convert React component to stateful'
-  },
-  {
-    name: 'stateless',
-    args: '<component-name>',
-    description: 'Convert React component to stateless'
-  }
-];
 
 const longestCommandLength = commands.reduce(
   (accum, { args, name }) => Math.max(accum, name.length + args.length),
