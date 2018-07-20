@@ -4,7 +4,9 @@
   "description": "Creuna command line tools",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"No test specified\" && exit 0"
+    "test": "echo \"No test specified\" && exit 0",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "bin": {
     "creuna": "./index.js"
