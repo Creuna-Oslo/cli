@@ -6,7 +6,6 @@ const termImg = require('term-img');
 
 const emoji = require('./emoji');
 const logoFallback = require('./logo-fallback');
-const commands = require('./commands').commands;
 const blue = chalk.blueBright;
 const bold = chalk.bold;
 const cyan = chalk.cyan;
@@ -20,11 +19,6 @@ const errorReadingConfig = () => {
     )}`
   );
 };
-
-const longestCommandLength = commands.reduce(
-  (accum, { args, name }) => Math.max(accum, name.length + args.length),
-  0
-);
 
 const componentAlreadyExists = componentName => {
   console.log(
@@ -58,16 +52,6 @@ const messageList = messages => {
   });
 };
 
-const printLineCommand = ({ args, name, description }) => {
-  const padding = new String(' ').repeat(
-    longestCommandLength - (name.length + args.length)
-  );
-
-  return `${emoji('👉', '•')} ${blue(name)} ${cyan(
-    args
-  )} ${padding}  ${description}\n`;
-};
-
 const gitHubReadError = error => {
   console.log(
     `${emoji('🙀', '×')} ${chalk.redBright("Oh no! Couldn't get files!")}
@@ -85,7 +69,25 @@ const gitHubRequestTimeout = () => {
   );
 };
 
-const help = () => {
+const help = commands => {
+  const printLineCommand = commands => ({ args, name, description }) => {
+    const longestCommandLength = commands =>
+      commands.reduce(
+        (accum, { args, name }) =>
+          Math.max(accum, name.length + args.join(' ').length),
+        0
+      );
+
+    const padding = new String(' ').repeat(
+      longestCommandLength(commands) - (name.length + args.join(' ').length)
+    );
+
+    return `${emoji('👉', '•')} ${blue(name)} ${cyan(
+      args.join(' ')
+    )} ${padding}  ${description}\n`;
+  };
+
+  let cs = Object.values(commands);
   termImg(path.join(__dirname, 'creuna.png'), {
     fallback: () => {
       console.log(logoFallback);
@@ -94,7 +96,7 @@ const help = () => {
   emptyLine();
   console.log(`${bold('Usage:')} creuna ${blue('<command>')}\n`);
   console.log(bold('Commands:'));
-  console.log(commands.map(printLineCommand).join(''));
+  console.log(cs.map(printLineCommand(cs)).join(''));
   console.log(
     `${emoji('🌈', '♥')} All command ${cyan('<arguments>')} are optional\n`
   );
@@ -160,6 +162,19 @@ const writingFiles = () => {
   console.log(`${emoji('💾')} Writing files`);
 };
 
+const tooManyArguments = args => {
+  console.log('ARGH', args);
+  console.log(`Too many arguments: `, args.length);
+};
+
+const tooFewArguments = args => {
+  console.log('Too few arguments: ', args.length);
+};
+
+const expectingExactArguments = numberOfArgs => {
+  console.log('expecting exactly ', numberOfArgs, ' arguments');
+};
+
 module.exports = {
   componentAlreadyExists,
   componentsAdded,
@@ -167,6 +182,7 @@ module.exports = {
   emptyLine,
   error,
   errorReadingConfig,
+  expectingExactArguments,
   gitHubReadError,
   gitHubRequestTimeout,
   help,
@@ -177,6 +193,8 @@ module.exports = {
   searchingForComponents,
   selectComponents,
   selectComponentsCancel,
+  tooFewArguments,
+  tooManyArguments,
   unrecognizedCommand,
   version,
   versionConflict,

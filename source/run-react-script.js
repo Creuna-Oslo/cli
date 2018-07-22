@@ -7,7 +7,7 @@ const {
   toStateless
 } = require('@creuna/react-scripts');
 
-const supportedCommands = require('./supported-commands');
+const supportedCommands = require('./commands/command-list').supportedCommands;
 
 module.exports = async function({
   arg1,
