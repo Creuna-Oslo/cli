@@ -37,6 +37,7 @@
     "configstore": "^3.1.2",
     "find-up": "^3.0.0",
     "fs-extra": "^6.0.1",
+    "got": "^8.3.2",
     "gradient-string": "^1.1.0",
     "octonode": "^0.9.2",
     "request": "^2.87.0",

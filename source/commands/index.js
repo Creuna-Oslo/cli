@@ -2,7 +2,6 @@
 /* eslint-env node*/
 const messages = require("../messages");
 const { supportedCommands } = require("./command-list");
-const getConfig = require("../get-config");
 
 const withDefaultMessages = commands => f => (...args) => {
   let command = args[0];
@@ -20,8 +19,9 @@ const withDefaultMessages = commands => f => (...args) => {
   return f(...valids);
 };
 
-let commandSwitch = withDefaultMessages(supportedCommands)((command, ...rest) =>
+let commandSwitch = withDefaultMessages(supportedCommands)((command, ...rest) => {
   supportedCommands[command].handler(...rest)
+}
 );
 
 module.exports = { supportedCommands, commandSwitch };

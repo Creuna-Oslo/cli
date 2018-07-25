@@ -16,9 +16,9 @@ let createApp = userPath => {
     .then(async output => {
       await maybeWriteVSCodeTasks(projectPath);
 
-      output.messages.emptyLine();
-      output.messages.messageList(messages);
-      output.messages.emptyLine();
+      messages.emptyLine();
+      messages.messageList(output.messages);
+      messages.emptyLine();
     })
     .catch(messages.error);
 };
