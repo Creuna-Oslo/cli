@@ -1,16 +1,16 @@
-let lib = require("./handlers/lib");
-let messages = require("../messages");
-let createApp = require("./handlers/new");
-let getConfig = require("../get-config");
-let got = require("got");
-const prompt = require("@creuna/prompt");
+let lib = require('./handlers/lib');
+let messages = require('../messages');
+let createApp = require('./handlers/new');
+let getConfig = require('../get-config');
+let got = require('got');
+const prompt = require('@creuna/prompt');
 const {
   newComponent,
   newPage,
   rename,
   toStateful,
   toStateless
-} = require("@creuna/react-scripts");
+} = require('@creuna/react-scripts');
 
 let compose = (f1, f2) => args => f1(f2(args));
 
@@ -63,27 +63,27 @@ let configThenPrompts = shouldHaveConfig => prompts =>
 
 let commands = [
   {
-    name: "new",
+    name: 'new',
     config: [],
-    args: ["<path>"],
+    args: ['<path>'],
     prompts: [],
-    description: "Create new project",
+    description: 'Create new project',
     handler: createApp
   },
   {
-    name: "lib",
-    config: ["<componentsPath>"],
+    name: 'lib',
+    config: ['<componentsPath>'],
     args: [],
     prompts: [],
-    description: "Add a component from the library",
+    description: 'Add a component from the library',
     handler: lib
   },
   {
-    name: "component",
-    config: ["componentsPath", "eslintConfig"],
-    args: ["<name>, <stateful>"],
-    prompts: ["New name of component", "stateful"],
-    description: "Create new React component",
+    name: 'component',
+    config: ['componentsPath', 'eslintConfig'],
+    args: ['<name>, <stateful>'],
+    prompts: ['New name of component', 'stateful'],
+    description: 'Create new React component',
     handler: (config, name, stateful) =>
       newComponent({
         componentsPath: config.componentsPath,
@@ -93,11 +93,11 @@ let commands = [
       })
   },
   {
-    name: "page",
+    name: 'page',
     config: [],
-    args: ["<name>", "<human-readable-name>"],
-    prompts: ["name: ", "human-readable-name"],
-    description: "Create new mockup page component",
+    args: ['<name>', '<human-readable-name>'],
+    prompts: ['name: ', 'human-readable-name'],
+    description: 'Create new mockup page component',
     handler: (config, name, humanName) =>
       newPage({
         componentName: name,
@@ -107,11 +107,11 @@ let commands = [
       })
   },
   {
-    name: "rename",
-    config: ["componentsPath", "eslintConfig"],
-    args: ["<old-name>", "<new-name>"],
-    prompts: ["old name?", "new name?"],
-    description: "Rename React component",
+    name: 'rename',
+    config: ['componentsPath', 'eslintConfig'],
+    args: ['<old-name>', '<new-name>'],
+    prompts: ['old name?', 'new name?'],
+    description: 'Rename React component',
     handler: (config, oldName, newName) =>
       rename({
         componentsPath: config.componentsPath,
@@ -121,11 +121,11 @@ let commands = [
       })
   },
   {
-    name: "stateful",
-    config: ["componentsPath", "eslintConfig"],
-    args: ["<component-name>"],
-    prompts: ["component name?"],
-    description: "Convert React component to stateful",
+    name: 'stateful',
+    config: ['componentsPath', 'eslintConfig'],
+    args: ['<component-name>'],
+    prompts: ['component name?'],
+    description: 'Convert React component to stateful',
     handler: (config, componentName) =>
       toStateful({
         componentsPath: config.componentsPath,
@@ -134,11 +134,11 @@ let commands = [
       })
   },
   {
-    name: "stateless",
+    name: 'stateless',
     config: [],
-    args: ["<component-name>"],
-    prompts: ["component name:"],
-    description: "Convert React component to stateless",
+    args: ['<component-name>'],
+    prompts: ['component name:'],
+    description: 'Convert React component to stateless',
     handler: (config, componentName) =>
       toStateless({
         componentsPath: config.componentsPath,
@@ -147,15 +147,15 @@ let commands = [
       })
   },
   {
-    name: "applyForJob",
+    name: 'applyForJob',
     config: [],
-    args: ["<name>", "<message>", "<contact>"],
-    prompts: ["<name>", "<message>", "<contact>"],
-    description: "Apply for a job at Creuna",
-    handler: (...args) => 
+    args: ['<name>', '<message>', '<contact>'],
+    prompts: ['<name>', '<message>', '<contact>'],
+    description: 'Apply for a job at Creuna',
+    handler: (...args) =>
       got
         .post(
-          "https://creuna-job-applications.azurewebsites.net/api/application/${name}",
+          'https://creuna-job-applications.azurewebsites.net/api/application/${name}',
           {
             body: JSON.stringify({
               name: args[0],
@@ -164,7 +164,7 @@ let commands = [
             })
           }
         )
-        .then(response => console.log("Thanks for your application :D"))
+        .then(response => console.log('Thanks for your application :D'))
         .catch(e => console.log(e))
   }
 ];

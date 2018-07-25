@@ -1,12 +1,12 @@
-const appCreator = require("@creuna/create-react-app");
+const appCreator = require('@creuna/create-react-app');
 const maybeWriteVSCodeTasks = require('../../maybe-write-vscode-tasks');
 const getNewAppInput = require('../../get-new-app-input');
 const path = require('path');
 const messages = require('../../messages');
 
 let createApp = userPath => {
-  const projectPath = path.join(process.cwd(), userPath || "");
-  console.log("appCreator", appCreator)
+  const projectPath = path.join(process.cwd(), userPath || '');
+
   appCreator
     .canWriteFiles(projectPath)
     .then(() => getNewAppInput())

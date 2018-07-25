@@ -9,7 +9,7 @@ const selectComponents = require('./../../select-components');
 const readGhPath = require('./../../read-github-path');
 
 module.exports = async function(config) {
-  let localComponentsPath = config.componentsPath
+  let localComponentsPath = config.componentsPath;
   messages.emptyLine();
   messages.searchingForComponents();
 
