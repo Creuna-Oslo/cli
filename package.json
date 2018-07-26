@@ -4,7 +4,7 @@
   "description": "Creuna command line tools",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"No test specified\" && exit 0",
+    "test": "ava",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },
@@ -46,6 +46,7 @@
     "term-img": "^2.1.0"
   },
   "devDependencies": {
+    "ava": "1.0.0-beta.6",
     "babel-eslint": "^8.2.3",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",

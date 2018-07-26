@@ -164,25 +164,33 @@ let commands = [
             })
           }
         )
-        .then(response => console.log('Thanks for your application :D'))
+        .then(_ => console.log('Thanks for your application :D'))
         .catch(e => console.log(e))
   }
 ];
 
-let supportedCommands = commands.reduce((acc, current) => {
-  return {
-    ...acc,
-    [current.name]: {
-      ...current,
-      handler: (...args) => {
-        configThenPrompts(current.config.length !== 0)(
-          current.prompts.map((prompt, index) =>
-            mkPrompt(prompt).call(this, args[index])
-          )
-        )(current.handler)(...args);
+let buildCommands = commands =>
+  commands.reduce((acc, current) => {
+    return {
+      ...acc,
+      [current.name]: {
+        ...current,
+        handler: (...args) => {
+          configThenPrompts(current.config.length !== 0)(
+            current.prompts.map((prompt, index) =>
+              mkPrompt(prompt).call(this, args[index])
+            )
+          )(current.handler)(...args);
+        }
       }
-    }
-  };
-}, {});
+    };
+  }, {});
 
-module.exports = { supportedCommands };
+let supportedCommands = buildCommands(commands);
+module.exports = {
+  supportedCommands,
+  commands,
+  serial,
+  justValues,
+  buildCommands
+};

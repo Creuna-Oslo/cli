@@ -11,7 +11,7 @@ const configstore = require('./source/configstore');
   fetchLatestVersion();
 
   // this should really be using minimist, eventually
-  const [path, node, command, ...rest] = process.argv;
+  const [_path, _node, command, ...rest] = process.argv;
   if (rest.includes('--version') || rest.includes('-v')) {
     messages.version(currentVersion);
     process.exit(0);
