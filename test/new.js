@@ -4,7 +4,7 @@ const test = require('ava');
 const runCreateApp = require('./utils/run-create-app');
 const walkDirSync = require('./utils/walk-dir-sync');
 
-test.cb('All options enabled', t => {
+test.serial.cb('All options enabled', t => {
   t.plan(1);
 
   runCreateApp(new Array(9).fill('y')).then(buildPath => {
@@ -19,7 +19,7 @@ test.cb('All options enabled', t => {
   });
 });
 
-test.cb('All options disabled', t => {
+test.serial.cb('All options disabled', t => {
   t.plan(1);
 
   runCreateApp(new Array(9).fill('n')).then(buildPath => {
