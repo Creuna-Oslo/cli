@@ -4,10 +4,10 @@ const test = require('ava');
 const runCreateApp = require('./utils/run-create-app');
 const walkDirSync = require('./utils/walk-dir-sync');
 
-test.serial.cb('All options enabled', t => {
+const template = (t, answers) => {
   t.plan(1);
 
-  runCreateApp(new Array(9).fill('y')).then(buildPath => {
+  runCreateApp(answers).then(buildPath => {
     const allFiles = walkDirSync(buildPath);
 
     t.snapshot(
@@ -17,20 +17,7 @@ test.serial.cb('All options enabled', t => {
     );
     t.end();
   });
-});
+};
 
-test.serial.cb('All options disabled', t => {
-  t.plan(1);
-
-  runCreateApp(new Array(9).fill('n')).then(buildPath => {
-    const allFiles = walkDirSync(buildPath);
-
-    t.snapshot(
-      allFiles.map(filePath =>
-        // Turn OS specific path separators into forward slashes so snapshots aren't broken on Windows
-        filePath.replace(new RegExp(`${path.sep}/g`), '/')
-      )
-    );
-    t.end();
-  });
-});
+test.serial.cb('All options enabled', template, new Array(9).fill('y'));
+test.serial.cb('All options disabled', template, new Array(9).fill('n'));
