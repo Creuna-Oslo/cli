@@ -27,5 +27,5 @@ const template = async (t, answers, args = '') => {
   t.snapshot(fs.readFileSync(componentPath, 'utf-8'));
 };
 
-test.serial('With prompt', template, ['image', 'new-component']);
-test.serial('With arguments', template, [], 'image new-component');
+test.serial('With prompt', template, ['component-stateful', 'new-component']);
+test.serial('With arguments', template, [], 'component-stateful new-component');

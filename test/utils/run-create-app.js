@@ -1,16 +1,20 @@
+const fsExtra = require('fs-extra');
+const path = require('path');
 const tempy = require('tempy');
 
-const getBinPath = require('./get-bin-path');
-const runWithPrompt = require('./run-with-prompt');
-
-module.exports = (answers = new Array(9).fill('y')) =>
+module.exports = () =>
   new Promise(res => {
     const buildPath = tempy.directory();
-    const binPath = getBinPath(buildPath);
 
-    runWithPrompt(`cd ${buildPath} && node ${binPath} new`, answers).then(
-      () => {
+    fsExtra
+      .copy(path.join(__dirname, '..', 'fixtures', 'app'), buildPath)
+      .then(() =>
+        fsExtra.copy(
+          path.join(__dirname, '..', 'fixtures', 'components'),
+          path.join(buildPath, 'source', 'components')
+        )
+      )
+      .then(() => {
         res(buildPath);
-      }
-    );
+      });
   });
