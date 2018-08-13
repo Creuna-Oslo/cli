@@ -3,13 +3,13 @@ const path = require('path');
 const test = require('ava');
 
 const getBinPath = require('./utils/get-bin-path');
-const runCreateApp = require('./utils/run-create-app');
+const createMockApp = require('./utils/create-mock-app');
 const runWithPrompt = require('./utils/run-with-prompt');
 
 const template = async (t, answers, args = '') => {
   t.plan(2);
 
-  const buildPath = await runCreateApp();
+  const buildPath = await createMockApp();
 
   await runWithPrompt(
     `cd ${buildPath} && node ${getBinPath(buildPath)} page ${args}`,
