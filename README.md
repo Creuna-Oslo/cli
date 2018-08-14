@@ -67,7 +67,7 @@ Convert React component to stateless if able to. Supports absolute path or path 
 
 ### Notes
 
-All commands except `creuna new` require a `.creunarc.json` in your project root. If you run `creuna new` you'll get this for free. 😎
+All commands except `creuna new` support a `.creunarc.json` in your project root. Having this file ensures that components are always added to the correct folder, regardless of your current directory (within the project of course). The boilerplate app created by `creuna new` includes this file.
 
 #### .creunarc.json
 
