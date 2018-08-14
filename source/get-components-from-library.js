@@ -4,14 +4,12 @@ const fs = require('fs');
 const path = require('path');
 
 const canConnect = require('./can-connect');
+const gitHubLogin = require('./github-login');
 const messages = require('./messages');
 const selectComponents = require('./select-components');
 const readGhPath = require('./read-github-path');
 
 module.exports = async function(localComponentsPath) {
-  messages.emptyLine();
-  messages.searchingForComponents();
-
   const canConnectToGitHub = await canConnect('www.github.com');
 
   if (!canConnectToGitHub) {
@@ -19,6 +17,20 @@ module.exports = async function(localComponentsPath) {
     messages.emptyLine();
     process.exit(1);
   }
+  try {
+    const { client, repo } = await gitHubLogin();
+
+    client.limit((err, left, max) => {
+      console.log(left, max);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
+  return;
+
+  messages.emptyLine();
+  messages.searchingForComponents();
 
   const componentNames = await readGhPath('components').then(componentPaths =>
     // Remove first slug ('components/')
