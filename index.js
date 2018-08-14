@@ -18,6 +18,7 @@ const appCreator = require('@creuna/create-react-app');
 const path = require('path');
 const semver = require('semver');
 
+const clearGitHubCredentials = require('./source/clear-github-credentials');
 const configstore = require('./source/configstore');
 const fetchLatestVersion = require('./source/fetch-latest-version');
 const getConfig = require('./source/get-config');
@@ -43,6 +44,12 @@ if (!command) {
 
     if (command === supportedCommands.lib) {
       return lib(componentsPath);
+    }
+
+    if (command === supportedCommands.logout) {
+      clearGitHubCredentials();
+      messages.clearedGitHubCredentials();
+      return;
     }
 
     if (command === supportedCommands.new) {
