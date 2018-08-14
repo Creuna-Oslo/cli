@@ -11,16 +11,6 @@ const blue = chalk.blueBright;
 const bold = chalk.bold;
 const cyan = chalk.cyan;
 
-const errorReadingConfig = () => {
-  console.log(
-    `${emoji('😱', '×')} ${chalk.redBright(
-      'Error reading configuration file'
-    )} ${chalk.blueBright('.creunarc.json')}${chalk.redBright(
-      '. See https://github.com/Creuna-Oslo/cli'
-    )}`
-  );
-};
-
 const commands = [
   {
     name: 'new',
@@ -204,7 +194,6 @@ module.exports = {
   downloadingComponents,
   emptyLine,
   error,
-  errorReadingConfig,
   gitHubReadError,
   gitHubRequestTimeout,
   help,

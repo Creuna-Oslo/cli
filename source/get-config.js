@@ -8,7 +8,7 @@ module.exports = function() {
   return Promise.all([
     findUp('.creunarc.json').then(filePath => {
       if (!filePath) {
-        throw new Error('No .creunarc.json file found.');
+        return {};
       }
 
       const { componentsPath, mockupPath } = require(path.relative(

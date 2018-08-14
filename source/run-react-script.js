@@ -1,3 +1,4 @@
+const path = require('path');
 const prompt = require('@creuna/prompt');
 const {
   newComponent,
@@ -7,6 +8,7 @@ const {
   toStateless
 } = require('@creuna/react-scripts');
 
+const getComponentPath = require('./utils/get-component-path');
 const supportedCommands = require('./supported-commands');
 
 module.exports = async function({
@@ -59,31 +61,45 @@ module.exports = async function({
         })
       : {};
 
+  const isPath = pathOrName.includes(path.sep);
+  const componentName = path.basename(pathOrName, path.extname(pathOrName));
+  const pageBasePath = isPath
+    ? path.join(mockupPath, path.dirname(pathOrName))
+    : mockupPath;
+  const componentBasePath = isPath
+    ? path.join(componentsPath, path.dirname(pathOrName))
+    : componentsPath;
+
   switch (command) {
     case supportedCommands.component:
       return newComponent({
-        componentsPath,
+        componentName,
         eslintConfig,
-        pathOrName,
+        folderPath: componentBasePath,
         shouldBeStateful
       });
     case supportedCommands.page:
       return newPage({
-        componentName: pathOrName,
+        componentName,
         eslintConfig,
-        humanReadableName,
-        mockupPath
+        folderPath: pageBasePath,
+        humanReadableName
       });
     case supportedCommands.rename:
       return rename({
-        componentsPath,
         eslintConfig,
-        pathOrName,
+        filePath: getComponentPath({ basePath: componentsPath, pathOrName }),
         newComponentName
       });
     case supportedCommands.stateful:
-      return toStateful({ componentsPath, eslintConfig, pathOrName });
+      return toStateful({
+        eslintConfig,
+        filePath: getComponentPath({ basePath: componentsPath, pathOrName })
+      });
     case supportedCommands.stateless:
-      return toStateless({ componentsPath, eslintConfig, pathOrName });
+      return toStateless({
+        eslintConfig,
+        filePath: getComponentPath({ basePath: componentsPath, pathOrName })
+      });
   }
 };
