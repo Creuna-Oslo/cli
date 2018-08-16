@@ -1,53 +1,49 @@
 const fs = require('fs');
 const path = require('path');
+const proxyquire = require('proxyquire');
 const test = require('ava');
 
-const getBinPath = require('./utils/get-bin-path');
 const createMockApp = require('./utils/create-mock-app');
-const runWithPrompt = require('./utils/run-with-prompt');
+const mockPrompt = require('./utils/mock-prompt');
 
-const template = async (t, command, answers, args = '') => {
+const template = async (t, command, answers = {}, args = []) => {
   t.plan(2);
 
-  const componentName = answers[0] || args;
+  const runReactScript = proxyquire('../source/run-react-script', {
+    '@creuna/prompt': mockPrompt.bind(null, answers)
+  });
+
+  const componentName = answers.pathOrName || args[0];
   const buildPath = await createMockApp();
 
-  // Convert to stateful
-  await runWithPrompt(
-    `cd ${buildPath} && node ${getBinPath(buildPath)} ${command} ${args}`,
-    answers
-  );
-
+  // This path is configured in .creunarc.json written by createMockApp
+  const componentsPath = path.join(buildPath, 'source', 'components');
   const componentPath = path.join(
-    buildPath,
-    'source',
-    'components',
+    componentsPath,
     componentName,
     `${componentName}.jsx`
   );
+
+  await runReactScript({
+    arg1: args[0],
+    command,
+    componentsPath
+  });
 
   t.is(fs.existsSync(componentPath), true);
   t.snapshot(fs.readFileSync(componentPath, 'utf-8'));
 };
 
-test.serial('To stateless with prompt', template, 'stateless', [
+test('To stateless with prompt', template, 'stateless', {
+  pathOrName: 'component-stateful'
+});
+test('To stateless with arguments', template, 'stateless', {}, [
   'component-stateful'
 ]);
-test.serial(
-  'To stateless with arguments',
-  template,
-  'stateless',
-  [],
-  'component-stateful'
-);
 
-test.serial('To stateful with prompt', template, 'stateful', [
+test('To stateful with prompt', template, 'stateful', {
+  pathOrName: 'component-stateless'
+});
+test('To stateful with arguments', template, 'stateful', {}, [
   'component-stateless'
 ]);
-test.serial(
-  'To stateful with arguments',
-  template,
-  'stateful',
-  [],
-  'component-stateless'
-);

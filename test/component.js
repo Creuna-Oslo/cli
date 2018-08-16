@@ -1,32 +1,41 @@
 const fs = require('fs');
 const path = require('path');
+const proxyquire = require('proxyquire');
 const test = require('ava');
 
-const getBinPath = require('./utils/get-bin-path');
 const createMockApp = require('./utils/create-mock-app');
-const runWithPrompt = require('./utils/run-with-prompt');
+const mockPrompt = require('./utils/mock-prompt');
 
-const template = async (t, answers, args = '') => {
+const template = async (t, answers = {}, args = []) => {
   t.plan(2);
+
+  const runReactScript = proxyquire('../source/run-react-script', {
+    '@creuna/prompt': mockPrompt.bind(null, answers)
+  });
 
   const buildPath = await createMockApp();
 
-  await runWithPrompt(
-    `cd ${buildPath} && node ${getBinPath(buildPath)} component ${args}`,
-    answers
-  );
+  // This path is configured in .creunarc.json written by createMockApp
+  const componentsPath = path.join(buildPath, 'source', 'components');
+  const componentPath = path.join(componentsPath, 'component', 'component.jsx');
 
-  const componentPath = path.join(
-    buildPath,
-    'source',
-    'components',
-    'component',
-    'component.jsx'
-  );
+  await runReactScript({
+    arg1: args[0],
+    arg2: args[1],
+    command: 'component',
+    componentsPath
+  });
+
   t.is(fs.existsSync(componentPath), true);
   t.snapshot(fs.readFileSync(componentPath, 'utf-8'));
 };
 
-test.serial('Stateful component', template, ['component', 'y']);
-test.serial('Stateful component (arguments)', template, [], 'component -s');
-test.serial('Stateless component', template, ['component', '']);
+test('Stateful component', template, {
+  pathOrName: 'component',
+  shouldBeStateful: true
+});
+test('Stateful component (arguments)', template, {}, ['component', '-s']);
+test('Stateless component', template, {
+  pathOrName: 'component',
+  shouldBeStateful: false
+});

@@ -1,32 +1,37 @@
 const fs = require('fs');
 const path = require('path');
+const proxyquire = require('proxyquire');
 const test = require('ava');
 
-const getBinPath = require('./utils/get-bin-path');
 const createMockApp = require('./utils/create-mock-app');
-const runWithPrompt = require('./utils/run-with-prompt');
+const mockPrompt = require('./utils/mock-prompt');
 
-const template = async (t, answers, args = '') => {
+const template = async (t, answers, args = []) => {
   t.plan(2);
+
+  const runReactScript = proxyquire('../source/run-react-script', {
+    '@creuna/prompt': mockPrompt.bind(null, answers)
+  });
 
   const buildPath = await createMockApp();
 
-  await runWithPrompt(
-    `cd ${buildPath} && node ${getBinPath(buildPath)} page ${args}`,
-    answers
-  );
+  // This path is configured in .creunarc.json written by createMockApp
+  const mockupPath = path.join(buildPath, 'source', 'mockup', 'pages');
+  const pagePath = path.join(mockupPath, 'new-page', 'new-page.jsx');
 
-  const pagePath = path.join(
-    buildPath,
-    'source',
-    'mockup',
-    'pages',
-    'new-page',
-    'new-page.jsx'
-  );
+  await runReactScript({
+    arg1: args[0],
+    arg2: args[1],
+    command: 'page',
+    mockupPath
+  });
+
   t.is(fs.existsSync(pagePath), true);
   t.snapshot(fs.readFileSync(pagePath, 'utf-8'));
 };
 
-test.serial('With prompt', template, ['new-page', 'New/page']);
-test.serial('With arguments', template, [], 'new-page New/page');
+test('With prompt', template, {
+  pathOrName: 'new-page',
+  humanReadableName: 'New/page'
+});
+test('With arguments', template, {}, ['new-page', 'New/page']);
