@@ -11,7 +11,7 @@ const storageKeys = {
 };
 
 const getGitHubClient = () =>
-  new Promise(async (resolve, reject) => {
+  new Promise((resolve, reject) => {
     const secret = configStore.get(storageKeys.secret);
 
     if (secret) {
@@ -34,7 +34,7 @@ const getGitHubClient = () =>
       return;
     }
 
-    const { shouldLogIn } = await prompt({
+    const { shouldLogIn } = prompt({
       shouldLogIn: {
         text: 'Log in to GitHub?',
         type: Boolean
@@ -46,16 +46,10 @@ const getGitHubClient = () =>
       return;
     }
 
-    const { username, password, otp } = await prompt({
-      username: {
-        text: 'Username'
-      },
-      password: {
-        text: 'Password'
-      },
-      otp: {
-        text: '2 factor authentication code'
-      }
+    const { username, password, otp } = prompt({
+      username: 'Username',
+      password: 'Password',
+      otp: '2 factor authentication code'
     });
 
     const tokenName = `creuna-cli_${os.hostname()}`;

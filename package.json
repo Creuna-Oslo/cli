@@ -7,10 +7,11 @@
     "test": "ava test/*.js --verbose"
   },
   "bin": {
-    "creuna": "./index.js"
+    "creuna": "./bin/index.js"
   },
   "files": [
     "index.js",
+    "bin",
     "source",
     "LICENSE",
     "README.md"

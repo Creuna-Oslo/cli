@@ -11,7 +11,7 @@ const {
 const getComponentPath = require('./utils/get-component-path');
 const supportedCommands = require('./supported-commands');
 
-module.exports = async function({
+module.exports = function({
   arg1,
   arg2,
   eslintConfig,
@@ -19,7 +19,7 @@ module.exports = async function({
   componentsPath,
   mockupPath
 }) {
-  const { pathOrName } = await prompt({
+  const { pathOrName } = prompt({
     pathOrName: {
       text:
         command === supportedCommands.page
@@ -31,18 +31,18 @@ module.exports = async function({
 
   const { shouldBeStateful } =
     command === supportedCommands.component
-      ? await prompt({
+      ? prompt({
           shouldBeStateful: {
             text: 'Should the component be stateful?',
             type: Boolean,
-            value: process.argv.indexOf('-s') !== -1 ? true : undefined
+            value: arg2 === '-s' ? true : undefined
           }
         })
       : {};
 
   const { humanReadableName } =
     command === supportedCommands.page
-      ? await prompt({
+      ? prompt({
           humanReadableName: {
             text: 'Human readable name (optional)',
             optional: true,
@@ -53,7 +53,7 @@ module.exports = async function({
 
   const { newComponentName } =
     command === supportedCommands.rename
-      ? await prompt({
+      ? prompt({
           newComponentName: {
             text: 'New name of component',
             value: arg2

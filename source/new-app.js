@@ -1,18 +1,13 @@
+const appCreator = require('@creuna/create-react-app');
 const prompt = require('@creuna/prompt');
 
 const emoji = require('./emoji');
 
-module.exports = function() {
+const getNewAppInput = () => {
   return prompt({
-    projectName: {
-      text: `${emoji('🚀')} Project name (kebab-case)`
-    },
-    authorName: {
-      text: `${emoji('😸')} Your full name`
-    },
-    authorEmail: {
-      text: `${emoji('💌')} Your email address`
-    },
+    projectName: `${emoji('🚀')} Project name (kebab-case)`,
+    authorName: `${emoji('😸')} Your full name`,
+    authorEmail: `${emoji('💌')} Your email address`,
     useApiHelper: {
       text: `${emoji('☁️')} Include API-helper?`,
       type: Boolean
@@ -31,3 +26,11 @@ module.exports = function() {
     }
   });
 };
+
+module.exports = projectPath =>
+  appCreator
+    .canWriteFiles(projectPath)
+    .then(() => getNewAppInput())
+    .then(answers =>
+      appCreator.writeFiles(Object.assign({}, answers, { projectPath }))
+    );
