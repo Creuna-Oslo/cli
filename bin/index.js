@@ -18,4 +18,4 @@ if (process.argv.includes('--version') || process.argv.includes('-v')) {
   process.exit(0);
 }
 
-run(command, arg1, arg2);
+run({ cwd: process.cwd(), command, arg1, arg2 });

@@ -15,7 +15,7 @@ const newApp = require('./source/new-app');
 const runReactScript = require('./source/run-react-script');
 const supportedCommands = require('./source/supported-commands');
 
-module.exports = function(command, arg1, arg2) {
+module.exports = function({ cwd = process.cwd(), command, arg1, arg2 }) {
   fetchLatestVersion();
 
   let shouldExit = false;
@@ -23,53 +23,41 @@ module.exports = function(command, arg1, arg2) {
   if (!command) {
     shouldExit = true;
   } else if (Object.values(supportedCommands).includes(command)) {
-    (async () => {
-      const {
-        componentsPath = process.cwd(),
-        eslintConfig,
-        mockupPath = process.cwd()
-      } = await getConfig();
+    if (command === supportedCommands.logout) {
+      clearGitHubCredentials();
+      messages.clearedGitHubCredentials();
+      return;
+    }
 
-      if (command === supportedCommands.lib) {
-        return lib(componentsPath);
-      }
+    if (command === supportedCommands.new) {
+      const projectPath = path.join(cwd, arg1 || '');
 
-      if (command === supportedCommands.logout) {
-        clearGitHubCredentials();
-        messages.clearedGitHubCredentials();
-        return;
-      }
-
-      if (command === supportedCommands.new) {
-        const projectPath = path.join(process.cwd(), arg1 || '');
-
-        return newApp(projectPath)
-          .then(response => {
-            maybeWriteVSCodeTasks(projectPath);
-
-            messages.emptyLine();
-            messages.messageList(response.messages);
-            messages.emptyLine();
-          })
-          .catch(messages.error);
-      }
-
-      // If the command isn't 'new', 'lib' or 'logout', the command is a @creuna/react-scripts command.
-      runReactScript({
-        arg1,
-        arg2,
-        eslintConfig,
-        command,
-        componentsPath,
-        mockupPath
-      })
+      return newApp(projectPath)
         .then(response => {
+          maybeWriteVSCodeTasks(projectPath);
+
           messages.emptyLine();
           messages.messageList(response.messages);
           messages.emptyLine();
         })
         .catch(messages.error);
-    })();
+    }
+
+    const { componentsPath, eslintConfig, mockupPath } = getConfig(cwd);
+
+    if (command === supportedCommands.lib) {
+      return lib(componentsPath);
+    }
+
+    // If the command isn't 'new', 'lib' or 'logout', the command is a @creuna/react-scripts command.
+    return runReactScript({
+      arg1,
+      arg2,
+      eslintConfig,
+      command,
+      componentsPath,
+      mockupPath
+    });
   } else {
     messages.unrecognizedCommand(command);
     messages.help();
