@@ -48,7 +48,7 @@ const getGitHubClient = () =>
 
     const { username, password, otp } = prompt({
       username: 'Username',
-      password: 'Password',
+      password: { text: 'Password', obfuscate: true },
       otp: '2 factor authentication code'
     });
 
