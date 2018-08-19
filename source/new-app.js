@@ -1,7 +1,11 @@
 const appCreator = require('@creuna/create-react-app');
+const fs = require('fs');
+const fsExtra = require('fs-extra');
+const path = require('path');
 const prompt = require('@creuna/prompt');
 
 const emoji = require('./emoji');
+const messages = require('./messages');
 
 const getNewAppInput = () => {
   return prompt({
@@ -23,14 +27,35 @@ const getNewAppInput = () => {
     useResponsiveImages: {
       text: `${emoji('🖼️')} Include responsive images helper?`,
       type: Boolean
+    },
+    shouldWriteVSCodeTasks: {
+      text: `${emoji('💻')} Include VS Code shortcuts for react scripts?`,
+      type: Boolean
     }
   });
 };
 
-module.exports = projectPath =>
-  appCreator
-    .canWriteFiles(projectPath)
-    .then(() => getNewAppInput())
-    .then(answers =>
-      appCreator.writeFiles(Object.assign({}, answers, { projectPath }))
+module.exports = async projectPath => {
+  try {
+    await appCreator.canWriteFiles(projectPath);
+
+    const answers = await getNewAppInput();
+    const response = await appCreator.writeFiles(
+      Object.assign({}, answers, { projectPath })
     );
+
+    if (answers.shouldWriteVSCodeTasks) {
+      fsExtra.ensureDirSync(path.join(projectPath, '.vscode'));
+      fs.copyFileSync(
+        path.join(__dirname, 'tasks.json'),
+        path.join(projectPath, '.vscode', 'tasks.json')
+      );
+    }
+
+    messages.emptyLine();
+    messages.messageList(response.messages);
+    messages.emptyLine();
+  } catch (error) {
+    messages.error(error);
+  }
+};

@@ -4,13 +4,15 @@ const test = require('ava');
 const tempy = require('tempy');
 
 const mockPrompt = require('./utils/mock-prompt');
+const mockMessages = require('./utils/mock-messages');
 const walkDirSync = require('./utils/walk-dir-sync');
 
 const template = async (t, answers) => {
   t.plan(1);
 
   const newApp = proxyquire('../source/new-app', {
-    '@creuna/prompt': mockPrompt.bind(null, answers)
+    '@creuna/prompt': mockPrompt.bind(null, answers),
+    './messages': mockMessages
   });
 
   const buildPath = tempy.directory();
@@ -30,7 +32,8 @@ test('All options enabled', template, {
   useApiHelper: true,
   useMessenger: true,
   useAnalyticsHelper: true,
-  useResponsiveImages: true
+  useResponsiveImages: true,
+  shouldWriteVSCodeTasks: true
 });
 test('All options disabled', template, {
   projectName: 'project',
@@ -39,5 +42,6 @@ test('All options disabled', template, {
   useApiHelper: false,
   useMessenger: false,
   useAnalyticsHelper: false,
-  useResponsiveImages: false
+  useResponsiveImages: false,
+  shouldWriteVSCodeTasks: false
 });

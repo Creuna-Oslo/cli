@@ -10,7 +10,6 @@ const configstore = require('./source/configstore');
 const fetchLatestVersion = require('./source/fetch-latest-version');
 const getConfig = require('./source/get-config');
 const lib = require('./source/get-components-from-library');
-const maybeWriteVSCodeTasks = require('./source/maybe-write-vscode-tasks');
 const newApp = require('./source/new-app');
 const runReactScript = require('./source/run-react-script');
 const supportedCommands = require('./source/supported-commands');
@@ -32,15 +31,7 @@ module.exports = function({ cwd = process.cwd(), command, arg1, arg2 }) {
     if (command === supportedCommands.new) {
       const projectPath = path.join(cwd, arg1 || '');
 
-      return newApp(projectPath)
-        .then(response => {
-          maybeWriteVSCodeTasks(projectPath);
-
-          messages.emptyLine();
-          messages.messageList(response.messages);
-          messages.emptyLine();
-        })
-        .catch(messages.error);
+      return newApp(projectPath);
     }
 
     const { componentsPath, eslintConfig, mockupPath } = getConfig(cwd);
