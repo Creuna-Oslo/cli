@@ -2,7 +2,6 @@
 /* eslint-env node */
 const currentVersion = require('../source/get-this-version');
 const messages = require('../source/messages');
-const run = require('../index');
 
 // eslint-disable-next-line
 const [nodeJsPath, binPath, command, arg1, arg2] = process.argv;
@@ -17,5 +16,7 @@ if (process.argv.includes('--version') || process.argv.includes('-v')) {
   messages.version(currentVersion);
   process.exit(0);
 }
+
+const run = require('../index');
 
 run({ cwd: process.cwd(), command, arg1, arg2 });
