@@ -9,9 +9,10 @@ const {
 } = require('@creuna/react-scripts');
 
 const getComponentPath = require('./utils/get-component-path');
+const messages = require('./messages');
 const supportedCommands = require('./supported-commands');
 
-module.exports = function({
+function runScript({
   arg1,
   arg2,
   eslintConfig,
@@ -102,4 +103,14 @@ module.exports = function({
         filePath: getComponentPath({ basePath: componentsPath, pathOrName })
       });
   }
+}
+
+module.exports = function(options) {
+  return runScript(options)
+    .then(response => {
+      messages.emptyLine();
+      messages.messageList(response.messages);
+      messages.emptyLine();
+    })
+    .catch(messages.error);
 };

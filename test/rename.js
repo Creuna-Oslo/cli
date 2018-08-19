@@ -4,18 +4,19 @@ const proxyquire = require('proxyquire');
 const test = require('ava');
 
 const createMockApp = require('./utils/create-mock-app');
+const mockMessages = require('./utils/mock-messages');
 const mockPrompt = require('./utils/mock-prompt');
 
 const template = async (t, answers, args = '') => {
   t.plan(2);
 
   const runReactScript = proxyquire('../source/run-react-script', {
-    '@creuna/prompt': mockPrompt.bind(null, answers)
+    '@creuna/prompt': mockPrompt.bind(null, answers),
+    './messages': mockMessages
   });
 
   const buildPath = await createMockApp();
 
-  // This path is configured in .creunarc.json written by createMockApp
   const componentsPath = path.join(buildPath, 'source', 'components');
   const componentPath = path.join(
     componentsPath,
