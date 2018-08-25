@@ -4,32 +4,26 @@ const findUp = require('find-up');
 const path = require('path');
 
 // Traverse up the folder tree, trying to find config files
-module.exports = function() {
-  return Promise.all([
-    findUp('.creunarc.json').then(filePath => {
-      if (!filePath) {
-        return {};
-      }
+module.exports = function(cwd = process.cwd()) {
+  const creunaRcPath = findUp.sync('.creunarc.json', { cwd });
+  const eslintRcPath = findUp.sync('.eslintrc.json', { cwd });
 
-      const { componentsPath, mockupPath } = require(path.relative(
-        __dirname,
-        filePath
-      ));
-      const projectRoot = filePath.substring(0, filePath.lastIndexOf(path.sep));
+  const eslintConfig =
+    eslintRcPath && require(path.relative(__dirname, eslintRcPath));
 
-      return {
-        componentsPath: path.join(projectRoot, componentsPath),
-        mockupPath: path.join(projectRoot, mockupPath)
-      };
-    }),
-    findUp('.eslintrc.json').then(filePath => {
-      if (filePath) {
-        return require(path.relative(__dirname, filePath));
-      }
-    })
-  ]).then(([{ componentsPath, mockupPath }, eslintConfig]) => ({
-    componentsPath,
-    mockupPath,
+  if (!creunaRcPath) {
+    return { componentsPath: cwd, eslintConfig, mockupPath: cwd };
+  }
+
+  const projectRoot = path.dirname(creunaRcPath);
+  const { componentsPath, mockupPath } = require(path.relative(
+    __dirname,
+    creunaRcPath
+  ));
+
+  return {
+    componentsPath: path.join(projectRoot, componentsPath),
+    mockupPath: path.join(projectRoot, mockupPath),
     eslintConfig
-  }));
+  };
 };

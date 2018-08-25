@@ -23,6 +23,11 @@ const commands = [
     description: 'Add a component from the library'
   },
   {
+    name: 'logout',
+    args: '',
+    description: 'Remove local GitHub credentials'
+  },
+  {
     name: 'component',
     args: '<name>',
     description: 'Create new React component'
@@ -53,6 +58,10 @@ const longestCommandLength = commands.reduce(
   (accum, { args, name }) => Math.max(accum, name.length + args.length),
   0
 );
+
+const clearedGitHubCredentials = () => {
+  console.log('GitHub credentials removed');
+};
 
 const componentAlreadyExists = componentName => {
   console.log(
@@ -94,6 +103,49 @@ const printLineCommand = ({ args, name, description }) => {
   return `${emoji('👉', '•')} ${blue(name)} ${cyan(
     args
   )} ${padding}  ${description}\n`;
+};
+
+const connectingToGitHub = () => {
+  console.log(`${emoji('🌎')} Connecting go GitHub...`);
+};
+
+const githubRateLimitExceeded = resetTime => {
+  const resetTimeMs = resetTime * 1000;
+  const remainingMinutes = Math.round(
+    (resetTimeMs - new Date().getTime()) / (1000 * 60)
+  );
+  const sparkleRainbow5000 =
+    emoji('✨') +
+    chalk.redBright('5') +
+    chalk.yellowBright('0') +
+    chalk.greenBright('0') +
+    chalk.cyan('0') +
+    emoji('✨');
+
+  console.log(
+    `${emoji('😭', '×')} ${chalk.redBright(
+      'Uh oh! GitHub API usage limit exceeded.'
+    )}
+
+${chalk.bold('Here are some things you can do:')}
+• Run ${chalk.cyan(
+      'creuna lib'
+    )} again and log in to Github. This will increase your API usage limit from 60 to ${sparkleRainbow5000} requests per hour.
+• Download components directly from ${chalk.cyan(
+      'https://github.com/Creuna-Oslo/react-components'
+    )}
+• Try again in ${remainingMinutes} minutes.
+
+The 60 requests per hour limit is shared between all non-authenticated users on the same network.\n`
+  );
+};
+
+const gitHubLoginError = tokenName => {
+  error(`Failed to log in. Things to try:
+• Try again! You might've had a typo.
+• If you have previously logged in on this computer, try going to ${chalk.blueBright(
+    'https://github.com/settings/tokens'
+  )} and deleting the token called ${chalk.cyan(tokenName)}`);
 };
 
 const gitHubReadError = error => {
@@ -139,7 +191,7 @@ const noComponentsToWrite = () => {
 };
 
 const searchingForComponents = () => {
-  console.log(`${emoji('🕵')} Searching for components`);
+  console.log(`${emoji('🕵')} Searching for components...`);
 };
 
 const noComponentsSelected = () => {
@@ -189,11 +241,15 @@ const writingFiles = () => {
 };
 
 module.exports = {
+  clearedGitHubCredentials,
   componentAlreadyExists,
   componentsAdded,
+  connectingToGitHub,
   downloadingComponents,
   emptyLine,
   error,
+  gitHubLoginError,
+  githubRateLimitExceeded,
   gitHubReadError,
   gitHubRequestTimeout,
   help,

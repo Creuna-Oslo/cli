@@ -4,85 +4,114 @@ const fs = require('fs');
 const path = require('path');
 
 const canConnect = require('./can-connect');
+const { getGitHubClient } = require('./get-github-client');
 const messages = require('./messages');
 const selectComponents = require('./select-components');
 const readGhPath = require('./read-github-path');
 
-module.exports = async function(localComponentsPath) {
-  messages.emptyLine();
-  messages.searchingForComponents();
+const getRemainingAPIUsage = client =>
+  new Promise(resolve => {
+    client.limit((error, left, max, reset) => {
+      resolve({ requestsLeft: left, resetTime: reset });
+    });
+  });
 
+module.exports = async function(localComponentsPath) {
   const canConnectToGitHub = await canConnect('www.github.com');
 
   if (!canConnectToGitHub) {
     messages.gitHubRequestTimeout();
     messages.emptyLine();
-    process.exit(1);
+    return;
   }
 
-  const componentNames = await readGhPath('components').then(componentPaths =>
-    // Remove first slug ('components/')
-    componentPaths.map(({ path }) => path.substring(path.indexOf('/') + 1))
-  );
-
-  const selectedComponents = await selectComponents(componentNames);
-
-  messages.emptyLine();
-
-  if (selectedComponents.length === 0) {
-    messages.noComponentsSelected();
-    process.exit(1);
-  }
-
-  const filteredComponents = selectedComponents.filter(componentName => {
-    if (fs.existsSync(path.join(localComponentsPath, componentName))) {
-      messages.componentAlreadyExists(componentName);
-      return false;
-    }
-    return true;
-  }, []);
-
-  if (filteredComponents.length === 0) {
-    messages.noComponentsToWrite();
+  try {
+    messages.connectingToGitHub();
     messages.emptyLine();
-    process.exit(0);
-  }
 
-  const filteredPaths = filteredComponents.map(name => `components/${name}`);
+    const client = await getGitHubClient();
+    const { requestsLeft, resetTime } = await getRemainingAPIUsage(client);
 
-  messages.downloadingComponents();
-
-  const allFilePaths = await Promise.all(
-    filteredPaths.map(componentPath => readGhPath(componentPath))
-  ).then(components => [].concat(...components)); // Merge 2D array to single array
-
-  const allFiles = await Promise.all(
-    allFilePaths.map(file => readGhPath(file.path))
-  ).then(filesData =>
-    filesData.map(({ path, content }) => ({
-      path: path && path.substring(path.indexOf('/') + 1), // remove first slug ('components/')
-      content: content && new Buffer(content, 'base64').toString('utf-8')
-    }))
-  );
-
-  messages.writingFiles();
-
-  allFiles.forEach(file => {
-    if (!file) {
-      messages.missingFile();
+    if (requestsLeft === 0) {
+      messages.githubRateLimitExceeded(resetTime);
       return;
     }
-    const content = file.content;
-    const filePath = path.join(
-      localComponentsPath,
-      file.path.replace('/', path.sep)
+
+    const repo = client.repo('Creuna-Oslo/react-components');
+
+    messages.searchingForComponents();
+
+    // Get names of available components from directory names in the 'components' folder in the repository
+    const componentNames = await readGhPath(repo, 'components').then(
+      componentPaths =>
+        // Remove first slug ('components/')
+        componentPaths.map(({ path }) => path.substring(path.indexOf('/') + 1))
     );
-    const directory = filePath.substring(0, filePath.lastIndexOf(path.sep));
-    ensureDirSync(directory);
-    fs.writeFileSync(filePath, content);
-  });
 
-  messages.componentsAdded();
+    // Get selected components from user input (checkboxes)
+    const selectedComponents = await selectComponents(componentNames);
 
-  process.exit(0);
+    messages.emptyLine();
+
+    if (selectedComponents.length === 0) {
+      messages.noComponentsSelected();
+      return;
+    }
+
+    // Filter out components that already exists on disk
+    const filteredComponents = selectedComponents.filter(componentName => {
+      if (fs.existsSync(path.join(localComponentsPath, componentName))) {
+        messages.componentAlreadyExists(componentName);
+        return false;
+      }
+      return true;
+    }, []);
+
+    if (filteredComponents.length === 0) {
+      messages.noComponentsToWrite();
+      messages.emptyLine();
+      return;
+    }
+
+    const filteredPaths = filteredComponents.map(name => `components/${name}`);
+
+    messages.downloadingComponents();
+
+    // Get list of file paths for all filtered components
+    const allFilePaths = await Promise.all(
+      filteredPaths.map(componentPath => readGhPath(repo, componentPath))
+    ).then(components => [].concat(...components)); // Merge 2D array to single array
+
+    // Get file contents for all file paths
+    const allFiles = await Promise.all(
+      allFilePaths.map(file => readGhPath(repo, file.path))
+    ).then(filesData =>
+      filesData.map(({ path, content }) => ({
+        path: path && path.substring(path.indexOf('/') + 1), // remove first slug ('components/')
+        content: content && new Buffer(content, 'base64').toString('utf-8')
+      }))
+    );
+
+    messages.writingFiles();
+
+    // Write files to disk
+    allFiles.forEach(file => {
+      if (!file) {
+        messages.missingFile();
+        return;
+      }
+      const content = file.content;
+      const filePath = path.join(
+        localComponentsPath,
+        file.path.replace('/', path.sep)
+      );
+      const directory = filePath.substring(0, filePath.lastIndexOf(path.sep));
+      ensureDirSync(directory);
+      fs.writeFileSync(filePath, content);
+    });
+
+    messages.componentsAdded();
+  } catch (error) {
+    messages.error(error);
+  }
 };

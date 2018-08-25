@@ -1,12 +1,7 @@
 /* eslint-env node */
-const github = require('octonode');
-
 const messages = require('./messages');
 
-const client = github.client();
-const repo = client.repo('Creuna-Oslo/react-components');
-
-module.exports = function(path) {
+module.exports = function(repo, path) {
   return new Promise(resolve => {
     repo.contents(path, (error, response) => {
       if (error) {
