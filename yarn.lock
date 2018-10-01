@@ -199,17 +199,17 @@
   dependencies:
     arrify "^1.0.1"
 
-"@creuna/create-react-app@^3.0.0":
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/@creuna/create-react-app/-/create-react-app-3.1.1.tgz#43304b681886ecd50edd7c0db31ddd6b1c114aaf"
+"@creuna/create-react-app@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@creuna/create-react-app/-/create-react-app-4.1.0.tgz#d206b7ce6d9a64ba71053c7e5e8384414099dbcc"
   dependencies:
     chalk "^2.1.0"
-    fs-extra "^6.0.1"
+    fs-extra "^7.0.0"
     prettier "^1.9.2"
 
 "@creuna/prompt@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@creuna/prompt/-/prompt-2.0.0.tgz#7bfb4c8b1c09a9de5d4f66940a94104b546f4626"
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@creuna/prompt/-/prompt-2.0.1.tgz#57a7dadfa6beb987b1753063691df7982a41781d"
   dependencies:
     readline-sync "^1.4.9"
 
@@ -1638,6 +1638,14 @@ form-data@~2.3.2:
 fs-extra@^6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-6.0.1.tgz#8abc128f7946e310135ddc93b98bddb410e7a34b"
+  dependencies:
+    graceful-fs "^4.1.2"
+    jsonfile "^4.0.0"
+    universalify "^0.1.0"
+
+fs-extra@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-7.0.0.tgz#8cc3f47ce07ef7b3593a11b9fb245f7e34c041d6"
   dependencies:
     graceful-fs "^4.1.2"
     jsonfile "^4.0.0"
