@@ -127,8 +127,8 @@
     js-tokens "^4.0.0"
 
 "@babel/parser@^7.0.0", "@babel/parser@^7.1.2", "@babel/parser@^7.1.3":
-  version "7.1.2"
-  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.1.2.tgz#85c5c47af6d244fab77bce6b9bd830e38c978409"
+  version "7.1.3"
+  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.1.3.tgz#2c92469bac2b7fbff810b67fca07bd138b48af77"
 
 "@babel/template@7.0.0-beta.44":
   version "7.0.0-beta.44"
@@ -163,8 +163,8 @@
     lodash "^4.2.0"
 
 "@babel/traverse@^7.0.0", "@babel/traverse@^7.1.0":
-  version "7.1.3"
-  resolved "https://registry.yarnpkg.com/@babel/traverse/-/traverse-7.1.3.tgz#7a3731b5f049d1190780de7a5e7fc68357fa5e6c"
+  version "7.1.4"
+  resolved "https://registry.yarnpkg.com/@babel/traverse/-/traverse-7.1.4.tgz#f4f83b93d649b4b2c91121a9087fa2fa949ec2b4"
   dependencies:
     "@babel/code-frame" "^7.0.0"
     "@babel/generator" "^7.1.3"
@@ -212,9 +212,9 @@
   dependencies:
     readline-sync "^1.4.9"
 
-"@creuna/react-scripts@^3.2.0":
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/@creuna/react-scripts/-/react-scripts-3.2.0.tgz#8e9da39b2eff37a58e5d5109613cd93c8b82a405"
+"@creuna/react-scripts@^3.2.1":
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/@creuna/react-scripts/-/react-scripts-3.2.1.tgz#449ee758014e927996b54e76f4fc0357574df858"
   dependencies:
     "@babel/generator" "^7.1.2"
     "@babel/parser" "^7.1.2"
@@ -229,8 +229,8 @@
     prettier "^1.13.4"
 
 "@creuna/utils@^0.3.4":
-  version "0.3.5"
-  resolved "https://registry.yarnpkg.com/@creuna/utils/-/utils-0.3.5.tgz#07eb588cc8319b024b5f75dc5343aa537e13f664"
+  version "0.3.6"
+  resolved "https://registry.yarnpkg.com/@creuna/utils/-/utils-0.3.6.tgz#dd940d76fdd5bb1889113a401f9fce635151ac3e"
 
 "@ladjs/time-require@^0.1.4":
   version "0.1.4"
@@ -1370,12 +1370,12 @@ es-abstract@^1.7.0:
     is-regex "^1.0.4"
 
 es-to-primitive@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/es-to-primitive/-/es-to-primitive-1.1.1.tgz#45355248a88979034b6792e19bb81f2b7975dd0d"
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/es-to-primitive/-/es-to-primitive-1.2.0.tgz#edf72478033456e8dda8ef09e00ad9650707f377"
   dependencies:
-    is-callable "^1.1.1"
+    is-callable "^1.1.4"
     is-date-object "^1.0.1"
-    is-symbol "^1.0.1"
+    is-symbol "^1.0.2"
 
 es6-error@^4.0.1, es6-error@^4.0.2:
   version "4.1.1"
@@ -1960,6 +1960,10 @@ has-flag@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/has-flag/-/has-flag-3.0.0.tgz#b5d454dc2199ae225699f3467e5a07f3b955bafd"
 
+has-symbols@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/has-symbols/-/has-symbols-1.0.0.tgz#ba1a8f1af2a0fc39650f5c850367704122063b44"
+
 has-unicode@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/has-unicode/-/has-unicode-2.0.1.tgz#e0e6fe6a28cf51138855e086d1691e771de2a8b9"
@@ -2149,7 +2153,7 @@ is-builtin-module@^1.0.0:
   dependencies:
     builtin-modules "^1.0.0"
 
-is-callable@^1.1.1, is-callable@^1.1.3:
+is-callable@^1.1.3, is-callable@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/is-callable/-/is-callable-1.1.4.tgz#1e1adf219e1eeb684d691f9d6a05ff0d30a24d75"
 
@@ -2306,9 +2310,11 @@ is-stream@^1.0.0, is-stream@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/is-stream/-/is-stream-1.1.0.tgz#12d4a3dd4e68e0b79ceb8dbc84173ae80d91ca44"
 
-is-symbol@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/is-symbol/-/is-symbol-1.0.1.tgz#3cc59f00025194b6ab2e38dbae6689256b660572"
+is-symbol@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/is-symbol/-/is-symbol-1.0.2.tgz#a055f6ae57192caee329e7a860118b497a950f38"
+  dependencies:
+    has-symbols "^1.0.0"
 
 is-typedarray@~1.0.0:
   version "1.0.0"
@@ -2538,13 +2544,13 @@ lodash.merge@^4.6.0:
   version "4.6.1"
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.1.tgz#adc25d9cb99b9391c59624f379fbba60d7111d54"
 
-lodash@^4.17.10, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0:
-  version "4.17.10"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
-
-lodash@^4.17.5:
+lodash@^4.17.10, lodash@^4.17.5:
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
+
+lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0:
+  version "4.17.10"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
 loose-envify@^1.0.0, loose-envify@^1.3.1:
   version "1.4.0"
