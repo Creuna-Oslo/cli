@@ -37,7 +37,7 @@
     "@creuna/prompt": "^2.0.0",
     "@creuna/react-scripts": "^3.2.2",
     "chalk": "^2.4.1",
-    "configstore": "^3.1.2",
+    "configstore": "^4.0.0",
     "find-up": "^3.0.0",
     "fs-extra": "^7.0.0",
     "gradient-string": "^1.1.0",
