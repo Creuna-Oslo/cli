@@ -51,6 +51,16 @@ test('With arguments', async t => {
   t.snapshot(fs.readFileSync(pagePath, 'utf-8'));
 });
 
+test('With custom data file extension', async t => {
+  const mockupPath = await createPage({}, ['new-page'], {
+    dataFileExtension: 'js'
+  });
+
+  const dataFilePath = path.join(mockupPath, 'new-page', 'new-page.js');
+
+  t.is(true, fs.existsSync(dataFilePath));
+});
+
 test('With custom data file extension and content', async t => {
   t.plan(2);
 
