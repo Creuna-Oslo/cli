@@ -136,9 +136,9 @@
   dependencies:
     readline-sync "^1.4.9"
 
-"@creuna/react-scripts@^3.2.2":
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/@creuna/react-scripts/-/react-scripts-3.2.2.tgz#378b46415c53e0b0cfd7731dce627139779f2980"
+"@creuna/react-scripts@^3.2.3":
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/@creuna/react-scripts/-/react-scripts-3.2.3.tgz#9610710f948702ed573fadb17fa4511944f85d31"
   dependencies:
     "@babel/generator" "^7.1.2"
     "@babel/parser" "^7.1.2"
