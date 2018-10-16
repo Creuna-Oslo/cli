@@ -15,9 +15,11 @@ const supportedCommands = require('./supported-commands');
 function runScript({
   arg1,
   arg2,
-  eslintConfig,
+  dataFileExtension,
+  dataFileContent,
   command,
   componentsPath,
+  eslintConfig,
   mockupPath
 }) {
   const { pathOrName } = prompt({
@@ -82,6 +84,8 @@ function runScript({
     case supportedCommands.page:
       return newPage({
         componentName,
+        dataFileContent,
+        dataFileExtension,
         eslintConfig,
         folderPath: pageBasePath,
         humanReadableName

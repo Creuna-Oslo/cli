@@ -34,7 +34,13 @@ module.exports = function({ cwd = process.cwd(), command, arg1, arg2 }) {
       return newApp(projectPath);
     }
 
-    const { componentsPath, eslintConfig, mockupPath } = getConfig(cwd);
+    const {
+      componentsPath,
+      dataFileContent,
+      dataFileExtension,
+      eslintConfig,
+      mockupPath
+    } = getConfig(cwd);
 
     if (command === supportedCommands.lib) {
       return lib(componentsPath);
@@ -44,9 +50,11 @@ module.exports = function({ cwd = process.cwd(), command, arg1, arg2 }) {
     return runReactScript({
       arg1,
       arg2,
-      eslintConfig,
       command,
       componentsPath,
+      dataFileContent,
+      dataFileExtension,
+      eslintConfig,
       mockupPath
     });
   } else {

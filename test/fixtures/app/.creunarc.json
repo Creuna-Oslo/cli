@@ -1,4 +1,6 @@
 {
   "componentsPath": "source/components",
-  "mockupPath": "source/mockup/pages"
+  "mockupPath": "source/mockup/pages",
+  "dataFileExtension": "js",
+  "dataFileContent": "export default { a: 'a' };"
 }

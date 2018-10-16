@@ -7,6 +7,8 @@ const createMockApp = require('./utils/create-mock-app');
 const mockMessages = require('./utils/mock-messages');
 const mockPrompt = require('./utils/mock-prompt');
 
+const eslintConfig = require('./fixtures/app/.eslintrc.json');
+
 const template = async (t, command, answers = {}, args = []) => {
   t.plan(2);
 
@@ -28,7 +30,8 @@ const template = async (t, command, answers = {}, args = []) => {
   await runReactScript({
     arg1: args[0],
     command,
-    componentsPath
+    componentsPath,
+    eslintConfig
   });
 
   t.is(fs.existsSync(componentPath), true);
