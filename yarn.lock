@@ -153,10 +153,10 @@
   dependencies:
     readline-sync "^1.4.9"
 
-"@creuna/react-scripts@^3.2.3":
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/@creuna/react-scripts/-/react-scripts-3.2.3.tgz#9610710f948702ed573fadb17fa4511944f85d31"
-  integrity sha512-5kgvczm7SRQlrfWwH3LvQ7aRtvY3Iiw1rqd0t9pVqsS2J6NtmF8V3GZK1haj6QZUXWT7DMP6hM6tY+cezHgAig==
+"@creuna/react-scripts@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@creuna/react-scripts/-/react-scripts-4.0.0.tgz#f0f3e831cc759b559f67dad74400b6dce8c6d3fd"
+  integrity sha512-Bij7TcPmxkJAfJP8ng9h7dRjUKwfo4F6bzZbOGQWfQcv5PkAWblVqGyoAQ0djplI4OeTOt91YpoSgEzy/4Mm7g==
   dependencies:
     "@babel/generator" "^7.1.2"
     "@babel/parser" "^7.1.2"

@@ -35,7 +35,7 @@
   "dependencies": {
     "@creuna/create-react-app": "^5.0.1",
     "@creuna/prompt": "^2.0.0",
-    "@creuna/react-scripts": "^3.2.3",
+    "@creuna/react-scripts": "^4.0.0",
     "chalk": "^2.4.1",
     "configstore": "^4.0.0",
     "find-up": "^3.0.0",
