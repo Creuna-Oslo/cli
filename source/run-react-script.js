@@ -20,7 +20,7 @@ function runScript({
   command,
   componentsPath,
   eslintConfig,
-  mockupPath
+  staticSitePath
 }) {
   const { pathOrName } = prompt({
     pathOrName: {
@@ -67,8 +67,8 @@ function runScript({
   const isPath = pathOrName.includes(path.sep);
   const componentName = path.basename(pathOrName, path.extname(pathOrName));
   const pageBasePath = isPath
-    ? path.join(mockupPath, path.dirname(pathOrName))
-    : mockupPath;
+    ? path.join(staticSitePath, path.dirname(pathOrName))
+    : staticSitePath;
   const componentBasePath = isPath
     ? path.join(componentsPath, path.dirname(pathOrName))
     : componentsPath;

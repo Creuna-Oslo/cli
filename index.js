@@ -39,7 +39,7 @@ module.exports = function({ cwd = process.cwd(), command, arg1, arg2 }) {
       dataFileContent,
       dataFileExtension,
       eslintConfig,
-      mockupPath
+      staticSitePath
     } = getConfig(cwd);
 
     if (command === supportedCommands.lib) {
@@ -55,7 +55,7 @@ module.exports = function({ cwd = process.cwd(), command, arg1, arg2 }) {
       dataFileContent,
       dataFileExtension,
       eslintConfig,
-      mockupPath
+      staticSitePath
     });
   } else {
     messages.unrecognizedCommand(command);

@@ -1,4 +1,3 @@
-const fs = require('fs');
 const path = require('path');
 const proxyquire = require('proxyquire');
 const test = require('ava');
@@ -17,7 +16,7 @@ test('Resolves creunarc and eslintrc', async (t, args = []) => {
 
   const buildPath = await createMockApp();
 
-  const { componentsPath, eslintConfig, mockupPath } = await indexScript({
+  const { componentsPath, eslintConfig, staticSitePath } = await indexScript({
     arg1: args[0],
     arg2: args[1],
     command: 'component',
@@ -25,6 +24,6 @@ test('Resolves creunarc and eslintrc', async (t, args = []) => {
   });
 
   t.is(componentsPath, path.join(buildPath, creunaRc.componentsPath));
-  t.is(mockupPath, path.join(buildPath, creunaRc.mockupPath));
+  t.is(staticSitePath, path.join(buildPath, creunaRc.staticSitePath));
   t.deepEqual(eslintConfig, eslintRc);
 });
