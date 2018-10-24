@@ -43,13 +43,21 @@ function runScript({
         })
       : {};
 
-  const { humanReadableName } =
+  const { groupName, humanReadableName, pageUrl } =
     command === supportedCommands.page
       ? prompt({
           humanReadableName: {
             text: 'Human readable name (optional)',
             optional: true,
             value: arg2
+          },
+          groupName: {
+            text: 'Group name for the index page (optional)',
+            optional: true
+          },
+          pageUrl: {
+            text: 'Custom url for the page (optional)',
+            optional: true
           }
         })
       : {};
@@ -88,7 +96,9 @@ function runScript({
         dataFileExtension,
         eslintConfig,
         folderPath: pageBasePath,
-        humanReadableName
+        groupName,
+        humanReadableName,
+        url: pageUrl
       });
     case supportedCommands.rename:
       return rename({
