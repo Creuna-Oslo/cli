@@ -35,7 +35,7 @@ const commands = [
   {
     name: 'page',
     args: '<name> <human-readable-name>',
-    description: 'Create new mockup page component'
+    description: 'Create new static site page component'
   },
   {
     name: 'rename',

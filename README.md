@@ -51,7 +51,7 @@ Create empty React component in your components folder.
 
 #### page \<name> \<human-readable-name>
 
-Create empty mockup page component in your mockup pages folder (Useful if you're working with an app created with the `new` command)
+Create empty static site page component in your static site pages folder (Useful if you're working with an app created with the `new` command)
 
 ### rename <old-name> <new-name>
 
@@ -74,6 +74,6 @@ All commands except `creuna new` support a `.creunarc.json` in your project root
 ```json
 {
   "componentsPath": "relative/path/to/components",
-  "mockupPath": "relative/path/to/mockup"
+  "staticSitePath": "relative/path/to/static/site/pages"
 }
 ```
