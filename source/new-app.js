@@ -61,7 +61,7 @@ module.exports = async projectPath => {
 
     fs.writeFileSync(
       path.join(projectPath, '.creunarc.json'),
-      JSON.stringify(creunaRcContent)
+      JSON.stringify(creunaRcContent, null, 2)
     );
 
     messages.emptyLine();
