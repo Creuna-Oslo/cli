@@ -13,13 +13,12 @@ const messages = require('./messages');
 const supportedCommands = require('./supported-commands');
 
 function runScript({
-  arg1,
-  arg2,
   dataFileExtension,
   dataFileContent,
   command,
   componentsPath,
   eslintConfig,
+  shellArguments,
   staticSitePath
 }) {
   const { pathOrName } = prompt({
@@ -28,7 +27,7 @@ function runScript({
         command === supportedCommands.page
           ? 'Name of page'
           : 'Name of component',
-      value: arg1
+      value: shellArguments[0]
     }
   });
 
@@ -38,7 +37,7 @@ function runScript({
           shouldBeStateful: {
             text: 'Should the component be stateful?',
             type: Boolean,
-            value: arg2 === '-s' ? true : undefined
+            value: shellArguments[1] === '-s' ? true : undefined
           }
         })
       : {};
@@ -49,15 +48,17 @@ function runScript({
           humanReadableName: {
             text: 'Human readable name (optional)',
             optional: true,
-            value: arg2
+            value: shellArguments[1]
           },
           groupName: {
             text: 'Group name for the index page (optional)',
-            optional: true
+            optional: true,
+            value: shellArguments[2]
           },
           pageUrl: {
             text: 'Custom url for the page (optional)',
-            optional: true
+            optional: true,
+            value: shellArguments[3]
           }
         })
       : {};
@@ -67,7 +68,7 @@ function runScript({
       ? prompt({
           newComponentName: {
             text: 'New name of component',
-            value: arg2
+            value: shellArguments[1]
           }
         })
       : {};

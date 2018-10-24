@@ -7,7 +7,7 @@ const createMockApp = require('./utils/create-mock-app');
 const mockMessages = require('./utils/mock-messages');
 const mockPrompt = require('./utils/mock-prompt');
 
-const template = async (t, answers = {}, args = []) => {
+const template = async (t, answers = {}, shellArguments = []) => {
   t.plan(2);
 
   const runReactScript = proxyquire('../source/run-react-script', {
@@ -21,10 +21,9 @@ const template = async (t, answers = {}, args = []) => {
   const componentPath = path.join(componentsPath, 'component', 'component.jsx');
 
   await runReactScript({
-    arg1: args[0],
-    arg2: args[1],
     command: 'component',
-    componentsPath
+    componentsPath,
+    shellArguments
   });
 
   t.is(fs.existsSync(componentPath), true);

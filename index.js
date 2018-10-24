@@ -14,7 +14,7 @@ const newApp = require('./source/new-app');
 const runReactScript = require('./source/run-react-script');
 const supportedCommands = require('./source/supported-commands');
 
-module.exports = function({ cwd = process.cwd(), command, arg1, arg2 }) {
+module.exports = function({ cwd = process.cwd(), command, shellArguments }) {
   fetchLatestVersion();
 
   let shouldExit = false;
@@ -29,7 +29,7 @@ module.exports = function({ cwd = process.cwd(), command, arg1, arg2 }) {
     }
 
     if (command === supportedCommands.new) {
-      const projectPath = path.join(cwd, arg1 || '');
+      const projectPath = path.join(cwd, shellArguments[0] || '');
 
       return newApp(projectPath);
     }
@@ -48,13 +48,12 @@ module.exports = function({ cwd = process.cwd(), command, arg1, arg2 }) {
 
     // If the command isn't 'new', 'lib' or 'logout', the command is a @creuna/react-scripts command.
     return runReactScript({
-      arg1,
-      arg2,
       command,
       componentsPath,
       dataFileContent,
       dataFileExtension,
       eslintConfig,
+      shellArguments,
       staticSitePath
     });
   } else {

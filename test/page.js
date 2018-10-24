@@ -13,7 +13,7 @@ const pageFixture = fs.readFileSync(
   'utf8'
 );
 
-const createPage = async (answers, args = [], options) => {
+const createPage = async (answers, shellArguments = [], options) => {
   const runReactScript = proxyquire('../source/run-react-script', {
     '@creuna/prompt': mockPrompt.bind(null, answers),
     './messages': mockMessages
@@ -24,11 +24,10 @@ const createPage = async (answers, args = [], options) => {
 
   await runReactScript({
     ...options,
-    arg1: args[0],
-    arg2: args[1],
     command: 'page',
     eslintConfig,
-    staticSitePath
+    staticSitePath,
+    shellArguments
   });
 
   return staticSitePath;
