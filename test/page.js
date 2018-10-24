@@ -3,9 +3,15 @@ const path = require('path');
 const proxyquire = require('proxyquire');
 const test = require('ava');
 
+const eslintConfig = require('./fixtures/app/.eslintrc.json');
 const createMockApp = require('./utils/create-mock-app');
 const mockMessages = require('./utils/mock-messages');
 const mockPrompt = require('./utils/mock-prompt');
+
+const pageFixture = fs.readFileSync(
+  path.join(__dirname, 'fixtures', 'components', 'static-site-page.jsx'),
+  'utf8'
+);
 
 const createPage = async (answers, args = [], options) => {
   const runReactScript = proxyquire('../source/run-react-script', {
@@ -21,6 +27,7 @@ const createPage = async (answers, args = [], options) => {
     arg1: args[0],
     arg2: args[1],
     command: 'page',
+    eslintConfig,
     staticSitePath
   });
 
@@ -32,23 +39,46 @@ test('With prompt', async t => {
 
   const staticSitePath = await createPage({
     pathOrName: 'new-page',
-    humanReadableName: 'New/page'
+    groupName: 'Pages',
+    humanReadableName: 'New page',
+    pageUrl: '/some-url'
   });
 
   const pagePath = path.join(staticSitePath, 'new-page', 'new-page.jsx');
 
+  const expectedContent = `/*
+group: Pages
+name: New page
+path: /some-url
+*/
+
+${pageFixture}`;
+
   t.is(fs.existsSync(pagePath), true);
-  t.snapshot(fs.readFileSync(pagePath, 'utf-8'));
+  t.is(expectedContent, fs.readFileSync(pagePath, 'utf-8'));
 });
 
 test('With arguments', async t => {
   t.plan(2);
 
-  const staticSitePath = await createPage({}, ['new-page', 'New/page']);
+  const staticSitePath = await createPage({}, [
+    'new-page',
+    'New page',
+    'Pages',
+    '/some-url'
+  ]);
   const pagePath = path.join(staticSitePath, 'new-page', 'new-page.jsx');
 
-  t.is(true, fs.existsSync(pagePath));
-  t.snapshot(fs.readFileSync(pagePath, 'utf-8'));
+  const expectedContent = `/*
+group: Pages
+name: New page
+path: /some-url
+*/
+
+${pageFixture}`;
+
+  t.is(fs.existsSync(pagePath), true);
+  t.is(expectedContent, fs.readFileSync(pagePath, 'utf-8'));
 });
 
 test('With custom data file extension', async t => {
