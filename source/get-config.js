@@ -12,20 +12,20 @@ module.exports = function(cwd = process.cwd()) {
     eslintRcPath && require(path.relative(__dirname, eslintRcPath));
 
   if (!creunaRcPath) {
-    return { componentsPath: cwd, eslintConfig, mockupPath: cwd };
+    return { componentsPath: cwd, eslintConfig, staticSitePath: cwd };
   }
 
   const projectRoot = path.dirname(creunaRcPath);
   const {
     componentsPath,
-    mockupPath,
+    staticSitePath,
     dataFileExtension,
     dataFileContent
   } = require(path.relative(__dirname, creunaRcPath));
 
   return {
     componentsPath: path.join(projectRoot, componentsPath),
-    mockupPath: path.join(projectRoot, mockupPath),
+    staticSitePath: path.join(projectRoot, staticSitePath),
     dataFileContent,
     dataFileExtension,
     eslintConfig
