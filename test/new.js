@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const proxyquire = require('proxyquire');
 const test = require('ava');
@@ -7,7 +8,7 @@ const mockPrompt = require('./utils/mock-prompt');
 const mockMessages = require('./utils/mock-messages');
 const walkDirSync = require('./utils/walk-dir-sync');
 
-const template = async (t, answers, expectedFiles) => {
+const runNewApp = async answers => {
   const newApp = proxyquire('../source/new-app', {
     '@creuna/prompt': mockPrompt.bind(null, answers),
     './messages': mockMessages
@@ -16,6 +17,12 @@ const template = async (t, answers, expectedFiles) => {
   const buildPath = tempy.directory();
 
   await newApp(buildPath);
+
+  return buildPath;
+};
+
+const template = async (t, answers, expectedFiles) => {
+  const buildPath = await runNewApp(answers);
   const allFiles = walkDirSync(buildPath);
 
   t.deepEqual(
@@ -159,3 +166,26 @@ test(
     'webpack.config.js'
   ]
 );
+
+test('Writes correct .eslintrc.json', async t => {
+  const buildPath = await runNewApp({
+    projectName: 'project',
+    authorName: 'author',
+    authorEmail: 'email'
+  });
+
+  const eslintRcContent = fs.readFileSync(
+    path.join(buildPath, '.creunarc.json'),
+    'utf8'
+  );
+
+  t.deepEqual(
+    {
+      componentsPath: 'source/components',
+      staticSitePath: 'source/static-site/pages',
+      dataFileContent: '{}',
+      dataFileExtension: 'json'
+    },
+    JSON.parse(eslintRcContent)
+  );
+});

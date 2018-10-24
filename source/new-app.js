@@ -52,6 +52,18 @@ module.exports = async projectPath => {
       );
     }
 
+    const creunaRcContent = {
+      componentsPath: 'source/components',
+      staticSitePath: 'source/static-site/pages',
+      dataFileContent: '{}',
+      dataFileExtension: 'json'
+    };
+
+    fs.writeFileSync(
+      path.join(projectPath, '.creunarc.json'),
+      JSON.stringify(creunaRcContent)
+    );
+
     messages.emptyLine();
     messages.messageList(response.messages);
     messages.emptyLine();
