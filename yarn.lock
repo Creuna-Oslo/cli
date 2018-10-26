@@ -3419,10 +3419,10 @@ observable-to-promise@^0.5.0:
     is-observable "^0.2.0"
     symbol-observable "^1.0.4"
 
-octonode@^0.9.2:
-  version "0.9.4"
-  resolved "https://registry.yarnpkg.com/octonode/-/octonode-0.9.4.tgz#ea0b348912b55cd873ecc6074d7aae6918d6a581"
-  integrity sha512-ZNrQab4fD6qJV9ERQ93hVYBAmTDPE58afEQT3WbIXcsvz6XqL/icIqfuiGCKpe6GOXvurJYMo3cinDz8SFua9Q==
+octonode@^0.9.5:
+  version "0.9.5"
+  resolved "https://registry.yarnpkg.com/octonode/-/octonode-0.9.5.tgz#0237ea289a2d6642068f6383a420bf97cfca993e"
+  integrity sha512-l+aX9jNVkaagh7u/q2QpNKdL8XUagdztl+ebXxBRU6FJ1tpRxAH/ygIuWh0h7eS491BsyH6bb0QZIQEC2+u5oA==
   dependencies:
     bluebird "^3.5.0"
     deep-extend "^0.6.0"
