@@ -13,14 +13,13 @@ const messages = require('./messages');
 const supportedCommands = require('./supported-commands');
 
 function runScript({
-  arg1,
-  arg2,
   dataFileExtension,
   dataFileContent,
   command,
   componentsPath,
   eslintConfig,
-  mockupPath
+  shellArguments,
+  staticSitePath
 }) {
   const { pathOrName } = prompt({
     pathOrName: {
@@ -28,7 +27,7 @@ function runScript({
         command === supportedCommands.page
           ? 'Name of page'
           : 'Name of component',
-      value: arg1
+      value: shellArguments[0]
     }
   });
 
@@ -38,18 +37,28 @@ function runScript({
           shouldBeStateful: {
             text: 'Should the component be stateful?',
             type: Boolean,
-            value: arg2 === '-s' ? true : undefined
+            value: shellArguments[1] === '-s' ? true : undefined
           }
         })
       : {};
 
-  const { humanReadableName } =
+  const { groupName, humanReadableName, pageUrl } =
     command === supportedCommands.page
       ? prompt({
           humanReadableName: {
             text: 'Human readable name (optional)',
             optional: true,
-            value: arg2
+            value: shellArguments[1]
+          },
+          groupName: {
+            text: 'Group name for the index page (optional)',
+            optional: true,
+            value: shellArguments[2]
+          },
+          pageUrl: {
+            text: 'Custom url for the page (optional)',
+            optional: true,
+            value: shellArguments[3]
           }
         })
       : {};
@@ -59,7 +68,7 @@ function runScript({
       ? prompt({
           newComponentName: {
             text: 'New name of component',
-            value: arg2
+            value: shellArguments[1]
           }
         })
       : {};
@@ -67,8 +76,8 @@ function runScript({
   const isPath = pathOrName.includes(path.sep);
   const componentName = path.basename(pathOrName, path.extname(pathOrName));
   const pageBasePath = isPath
-    ? path.join(mockupPath, path.dirname(pathOrName))
-    : mockupPath;
+    ? path.join(staticSitePath, path.dirname(pathOrName))
+    : staticSitePath;
   const componentBasePath = isPath
     ? path.join(componentsPath, path.dirname(pathOrName))
     : componentsPath;
@@ -88,7 +97,9 @@ function runScript({
         dataFileExtension,
         eslintConfig,
         folderPath: pageBasePath,
-        humanReadableName
+        groupName,
+        humanReadableName,
+        url: pageUrl
       });
     case supportedCommands.rename:
       return rename({

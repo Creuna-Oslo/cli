@@ -9,7 +9,7 @@ const mockPrompt = require('./utils/mock-prompt');
 
 const eslintConfig = require('./fixtures/app/.eslintrc.json');
 
-const template = async (t, command, answers = {}, args = []) => {
+const template = async (t, command, answers = {}, shellArguments = []) => {
   t.plan(2);
 
   const runReactScript = proxyquire('../source/run-react-script', {
@@ -17,7 +17,7 @@ const template = async (t, command, answers = {}, args = []) => {
     './messages': mockMessages
   });
 
-  const componentName = answers.pathOrName || args[0];
+  const componentName = answers.pathOrName || shellArguments[0];
   const buildPath = await createMockApp();
 
   const componentsPath = path.join(buildPath, 'source', 'components');
@@ -28,10 +28,10 @@ const template = async (t, command, answers = {}, args = []) => {
   );
 
   await runReactScript({
-    arg1: args[0],
     command,
     componentsPath,
-    eslintConfig
+    eslintConfig,
+    shellArguments
   });
 
   t.is(fs.existsSync(componentPath), true);

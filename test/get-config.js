@@ -14,7 +14,7 @@ test('Fixture app config', t => {
     ...creunaConfig,
     eslintConfig,
     componentsPath: path.join(appPath, 'source', 'components'),
-    mockupPath: path.join(appPath, 'source', 'mockup', 'pages')
+    staticSitePath: path.join(appPath, 'source', 'static-site', 'pages')
   };
 
   t.deepEqual(expectedConfig, config);

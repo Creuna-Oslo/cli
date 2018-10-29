@@ -40,7 +40,7 @@
       "problemMatcher": []
     },
     {
-      "label": "page - Create new mockup page",
+      "label": "page - Create new static site page",
       "type": "shell",
       "command": "creuna page",
       "presentation": {

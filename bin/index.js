@@ -4,7 +4,7 @@ const currentVersion = require('../source/get-this-version');
 const messages = require('../source/messages');
 
 // eslint-disable-next-line
-const [nodeJsPath, binPath, command, arg1, arg2] = process.argv;
+const [nodeJsPath, binPath, command, ...shellArguments] = process.argv;
 
 // The following two blocks are placed here in order to ensure fast shell output for 'creuna' and 'creuna -v'. (Node.js spends a small eternity importing and parsing the dependencies in ../index.js).
 if (!command) {
@@ -19,4 +19,4 @@ if (process.argv.includes('--version') || process.argv.includes('-v')) {
 
 const run = require('../index');
 
-run({ cwd: process.cwd(), command, arg1, arg2 });
+run({ cwd: process.cwd(), command, shellArguments });
