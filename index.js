@@ -34,13 +34,21 @@ module.exports = function({ cwd = process.cwd(), command, shellArguments }) {
       return newApp(projectPath);
     }
 
-    const {
-      componentsPath,
-      dataFileContent,
-      dataFileExtension,
-      eslintConfig,
-      staticSitePath
-    } = getConfig(cwd);
+    const [
+      {
+        componentsPath,
+        dataFileContent,
+        dataFileExtension,
+        eslintConfig,
+        staticSitePath
+      },
+      configError
+    ] = getConfig(cwd);
+
+    if (configError) {
+      messages.error(configError.message);
+      return;
+    }
 
     if (command === supportedCommands.lib) {
       return lib(componentsPath);
