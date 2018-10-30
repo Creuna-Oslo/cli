@@ -1,3 +1,12 @@
+# 2.1.0
+
+[https://github.com/Creuna-Oslo/cli/pull/46]()
+
+- Fixes [issue 28](https://github.com/Creuna-Oslo/cli/issues/28)
+- Fixes [issue 43](https://github.com/Creuna-Oslo/cli/issues/43)
+- Fixes [issue 44](https://github.com/Creuna-Oslo/cli/issues/44)
+- Fixes [issue 45](https://github.com/Creuna-Oslo/cli/issues/45)
+
 # 2.0.0
 
 [https://github.com/Creuna-Oslo/cli/pull/42]()
