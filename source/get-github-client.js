@@ -1,4 +1,3 @@
-const github = require('octonode');
 const os = require('os');
 const prompt = require('@creuna/prompt');
 
@@ -12,6 +11,7 @@ const storageKeys = {
 
 const getGitHubClient = () =>
   new Promise((resolve, reject) => {
+    const github = require('octonode');
     const secret = configStore.get(storageKeys.secret);
 
     if (secret) {

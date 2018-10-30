@@ -11,8 +11,18 @@ const newApp = require('./source/new-app');
 const runReactScript = require('./source/run-react-script');
 const supportedCommands = require('./source/supported-commands');
 
+const reactScripts = [
+  supportedCommands.stateful,
+  supportedCommands.stateless,
+  supportedCommands.page,
+  supportedCommands.component,
+  supportedCommands.rename
+];
+
 module.exports = function({ cwd = process.cwd(), command, shellArguments }) {
-  fetchLatestVersion();
+  if (!reactScripts.includes(command)) {
+    fetchLatestVersion();
+  }
 
   if (!Object.values(supportedCommands).includes(command)) {
     messages.unrecognizedCommand(command);

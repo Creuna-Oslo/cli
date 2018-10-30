@@ -1,10 +1,10 @@
-const request = require('request');
-
 const canConnect = require('./can-connect');
 const checkVersion = require('./check-version');
 const configstore = require('./configstore');
 
 async function fetchLatestVersion() {
+  const request = require('request');
+
   const canConnectToNPM = await canConnect('registry.npm.org');
 
   if (!canConnectToNPM) {
