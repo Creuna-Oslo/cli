@@ -1,6 +1,7 @@
 const request = require('request');
 
 const canConnect = require('./can-connect');
+const checkVersion = require('./check-version');
 const configstore = require('./configstore');
 
 async function fetchLatestVersion() {
@@ -25,6 +26,7 @@ async function fetchLatestVersion() {
 
       try {
         configstore.set('latestVersion', JSON.parse(body)['dist-tags'].latest);
+        checkVersion();
       } catch (error) {
         // NOTE: Noop because we don't really care and there is no graceful fallback
       }
