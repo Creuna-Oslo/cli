@@ -2,10 +2,10 @@
 
 [https://github.com/Creuna-Oslo/cli/pull/46]()
 
-- Fixes [issue 28](https://github.com/Creuna-Oslo/cli/issues/28)
-- Fixes [issue 43](https://github.com/Creuna-Oslo/cli/issues/43)
-- Fixes [issue 44](https://github.com/Creuna-Oslo/cli/issues/44)
-- Fixes [issue 45](https://github.com/Creuna-Oslo/cli/issues/45)
+- Fixes [issue 28](https://github.com/Creuna-Oslo/cli/issues/28) (Slow startup times)
+- Fixes [issue 43](https://github.com/Creuna-Oslo/cli/issues/43) (Add VS Code task for `lib`)
+- Fixes [issue 44](https://github.com/Creuna-Oslo/cli/issues/44) (Fail gracefully when `.creunarc.json` is malformed)
+- Fixes [issue 45](https://github.com/Creuna-Oslo/cli/issues/45) (Version check causes process to terminate way too late)
 
 # 2.0.0
 
