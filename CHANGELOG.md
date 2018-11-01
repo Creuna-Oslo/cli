@@ -1,3 +1,9 @@
+# 2.1.1
+
+[https://github.com/Creuna-Oslo/cli/pull/47]()
+
+- Upgrades `@creuna/create-react-app` ([updates browserslist query](https://github.com/Creuna-Oslo/create-react-app/pull/49))
+
 # 2.1.0
 
 [https://github.com/Creuna-Oslo/cli/pull/46]()
