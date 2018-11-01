@@ -217,10 +217,6 @@ const unrecognizedCommand = command => {
   );
 };
 
-const version = versionNumber => {
-  console.log(versionNumber);
-};
-
 const versionConflict = (currentVersion, latestVersion) => {
   console.log(
     `${emoji('🦄', '︎︎♥')} ${chalk.greenBright(
@@ -261,7 +257,6 @@ module.exports = {
   selectComponents,
   selectComponentsCancel,
   unrecognizedCommand,
-  version,
   versionConflict,
   writingFiles
 };

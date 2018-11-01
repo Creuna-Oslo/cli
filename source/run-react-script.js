@@ -1,12 +1,5 @@
 const path = require('path');
 const prompt = require('@creuna/prompt');
-const {
-  newComponent,
-  newPage,
-  rename,
-  toStateful,
-  toStateless
-} = require('@creuna/react-scripts');
 
 const getComponentPath = require('./utils/get-component-path');
 const messages = require('./messages');
@@ -72,6 +65,14 @@ function runScript({
           }
         })
       : {};
+
+  const {
+    newComponent,
+    newPage,
+    rename,
+    toStateful,
+    toStateless
+  } = require('@creuna/react-scripts');
 
   const isPath = pathOrName.includes(path.sep);
   const componentName = path.basename(pathOrName, path.extname(pathOrName));

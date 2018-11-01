@@ -1,4 +1,3 @@
-const appCreator = require('@creuna/create-react-app');
 const fs = require('fs');
 const fsExtra = require('fs-extra');
 const path = require('path');
@@ -36,6 +35,8 @@ const getNewAppInput = () => {
 };
 
 module.exports = async projectPath => {
+  const appCreator = require('@creuna/create-react-app');
+
   try {
     await appCreator.canWriteFiles(projectPath);
 

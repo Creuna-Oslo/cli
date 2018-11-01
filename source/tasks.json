@@ -52,9 +52,21 @@
       "problemMatcher": []
     },
     {
-      "label": "Rename component",
+      "label": "rename - Rename component",
       "type": "shell",
       "command": "creuna rename ${file}",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "lib - Add component from library",
+      "type": "shell",
+      "command": "creuna lib",
       "presentation": {
         "echo": true,
         "reveal": "always",

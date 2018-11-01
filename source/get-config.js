@@ -1,5 +1,6 @@
 /* eslint-env node */
 /* eslint-disable no-console */
+const assert = require('assert');
 const findUp = require('find-up');
 const path = require('path');
 
@@ -12,7 +13,7 @@ module.exports = function(cwd = process.cwd()) {
     eslintRcPath && require(path.relative(__dirname, eslintRcPath));
 
   if (!creunaRcPath) {
-    return { componentsPath: cwd, eslintConfig, staticSitePath: cwd };
+    return [{ componentsPath: cwd, eslintConfig, staticSitePath: cwd }];
   }
 
   const projectRoot = path.dirname(creunaRcPath);
@@ -23,11 +24,27 @@ module.exports = function(cwd = process.cwd()) {
     dataFileContent
   } = require(path.relative(__dirname, creunaRcPath));
 
-  return {
-    componentsPath: path.join(projectRoot, componentsPath),
-    staticSitePath: path.join(projectRoot, staticSitePath),
-    dataFileContent,
-    dataFileExtension,
-    eslintConfig
-  };
+  try {
+    const errorFooter = `\nThis property is required when using a '.creunarc.json' file.`;
+    assert(
+      componentsPath,
+      `No 'componentsPath' found in ${creunaRcPath}${errorFooter}`
+    );
+    assert(
+      staticSitePath,
+      `No 'staticSitePath' found in ${creunaRcPath}${errorFooter}`
+    );
+  } catch (error) {
+    return [{}, error];
+  }
+
+  return [
+    {
+      componentsPath: path.join(projectRoot, componentsPath),
+      staticSitePath: path.join(projectRoot, staticSitePath),
+      dataFileContent,
+      dataFileExtension,
+      eslintConfig
+    }
+  ];
 };
