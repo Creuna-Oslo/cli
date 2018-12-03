@@ -1,3 +1,9 @@
+# 2.1.2
+
+[https://github.com/Creuna-Oslo/cli/pull/48]()
+
+- Upgrades `@creuna/react-scripts` from `4.0.0` to `4.0.1` ([https://github.com/Creuna-Oslo/react-scripts/pull/24]())
+
 # 2.1.1
 
 [https://github.com/Creuna-Oslo/cli/pull/47]()
