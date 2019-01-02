@@ -374,10 +374,10 @@
   dependencies:
     arrify "^1.0.1"
 
-"@creuna/create-react-app@^5.0.2":
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/@creuna/create-react-app/-/create-react-app-5.0.2.tgz#d8a46e890a60e623661d0015f8b9a9052496e2cf"
-  integrity sha512-s3wlh5vFimeGxu6MYHAjUcsB08wWugEz8JtuaIBBmRW6MOg8lgDjjmxz25hwwE0huG7YWppclCr9+IZj/5bd5Q==
+"@creuna/create-react-app@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@creuna/create-react-app/-/create-react-app-5.1.0.tgz#4cd135c5aa49e60eca47b17400fe5b795a5d01ba"
+  integrity sha512-huG2VEOu0M3hn1SaF+g17mOUXKY1f/e73qHWsTHO/iXt75IhsDPOJXqL2UUfqJGzvCsFZ/mDljnJLOn3i/zMxw==
   dependencies:
     chalk "^2.1.0"
     fs-extra "^7.0.0"
