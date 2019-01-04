@@ -1,3 +1,10 @@
+# 2.2.0
+
+[https://github.com/Creuna-Oslo/cli/pull/49]()
+
+- Upgrades `@creuna/create-react-app` from `5.0.2` to `5.1.0`
+- Upgrades other dependencies and dev dependencies to latest version
+
 # 2.1.2
 
 [https://github.com/Creuna-Oslo/cli/pull/48]()

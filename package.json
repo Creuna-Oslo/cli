@@ -1,6 +1,6 @@
 {
   "name": "@creuna/cli",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "Creuna command line tools",
   "main": "index.js",
   "scripts": {
@@ -33,7 +33,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@creuna/create-react-app": "^5.0.2",
+    "@creuna/create-react-app": "^5.2.0",
     "@creuna/prompt": "^2.0.0",
     "@creuna/react-scripts": "^4.0.1",
     "chalk": "^2.4.1",
@@ -45,10 +45,10 @@
     "request": "^2.87.0",
     "select-shell": "^1.1.2",
     "semver": "^5.5.0",
-    "term-img": "^2.1.0"
+    "term-img": "^4.0.0"
   },
   "devDependencies": {
-    "ava": "^0.25.0",
+    "ava": "^1.0.1",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.7.0",
     "eslint-config-prettier": "^3.1.0",
