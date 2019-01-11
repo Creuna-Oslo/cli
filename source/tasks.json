@@ -4,6 +4,18 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "codegen - Run all codegen scripts",
+      "type": "shell",
+      "command": "node ${workspaceFolder}/codegen/components && node ${workspaceFolder}/codegen/pages && touch ${workspaceFolder}/source/scss/style.scss",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "stateful - Convert to stateful component",
       "type": "shell",
       "command": "creuna stateful ${file}",
