@@ -1,3 +1,10 @@
+# 2.3.0
+
+[https://github.com/Creuna-Oslo/cli/pull/52]()
+
+- Adds `codegen` task to `.vscode/tasks.json` ([issue 51](https://github.com/Creuna-Oslo/cli/issues/51))
+- Upgrades `@creuna/create-react-app` from `5.2.0` to `5.2.1`
+
 # 2.2.0
 
 [https://github.com/Creuna-Oslo/cli/pull/49]()
