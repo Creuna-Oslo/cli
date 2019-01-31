@@ -1,3 +1,7 @@
+# 2.3.1
+
+- Upgrade all dependencies
+
 # 2.3.0
 
 [https://github.com/Creuna-Oslo/cli/pull/52]()
