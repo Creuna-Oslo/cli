@@ -1,3 +1,7 @@
+# 2.3.2
+
+- Upgrades `@creuna/react-scripts` from `4.0.1` to `4.0.3`
+
 # 2.3.1
 
 - Upgrade all dependencies
