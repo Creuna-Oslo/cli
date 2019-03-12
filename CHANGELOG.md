@@ -1,3 +1,10 @@
+# 3.0.0
+
+[https://github.com/Creuna-Oslo/cli/pull/55]()
+
+- Upgrades `@creuna/create-react-app` from `5.2.2` to `5.3.0`
+- BREAKING: upgrades `@creuna/react-scripts` from `4.0.3` to `5.0.0`. `index.js` files are no longer produced by `creuna component` or `creuna page`, and `creuna rename` now ignores `index.js` files. Scaffolded apps now use `directory-named-webpack-plugin` as an alternative to `index.js` files.
+
 # 2.3.2
 
 - Upgrades `@creuna/react-scripts` from `4.0.1` to `4.0.3`
