@@ -24,7 +24,5 @@ module.exports = (nameArg, contactArg, messageArg) => {
         jobApplyFail();
       }
     })
-    .catch(() => {
-      jobApplyFail();
-    });
+    .catch(jobApplyFail);
 };
