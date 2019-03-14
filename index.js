@@ -5,6 +5,7 @@ const checkVersion = require('./source/check-version');
 const clearGitHubCredentials = require('./source/clear-github-credentials');
 const fetchLatestVersion = require('./source/fetch-latest-version');
 const getConfig = require('./source/get-config');
+const jobApply = require('./source/job-apply');
 const lib = require('./source/get-components-from-library');
 const messages = require('./source/messages');
 const newApp = require('./source/new-app');
@@ -27,6 +28,11 @@ module.exports = function({ cwd = process.cwd(), command, shellArguments }) {
   if (!Object.values(supportedCommands).includes(command)) {
     messages.unrecognizedCommand(command);
     messages.help();
+    return;
+  }
+
+  if (command === supportedCommands.job) {
+    jobApply(...shellArguments);
     return;
   }
 
