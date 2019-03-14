@@ -1,3 +1,7 @@
+# 3.1.0
+
+- Adds `creuna job`. Apply for a job using a cli!
+
 # 3.0.0
 
 [https://github.com/Creuna-Oslo/cli/pull/55]()
