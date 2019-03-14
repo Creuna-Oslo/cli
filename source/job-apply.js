@@ -17,12 +17,6 @@ module.exports = (nameArg, contactArg, messageArg) => {
       body: JSON.stringify({ name, contact, message })
     }
   )
-    .then(response => {
-      if (response.ok) {
-        jobApplySuccess();
-      } else {
-        jobApplyFail();
-      }
-    })
+    .then(response => (response.ok ? jobApplySuccess() : jobApplyFail()))
     .catch(jobApplyFail);
 };
