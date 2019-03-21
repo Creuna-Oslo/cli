@@ -1,6 +1,6 @@
 {
   "name": "@creuna/cli",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Creuna command line tools",
   "main": "index.js",
   "scripts": {
@@ -41,6 +41,7 @@
     "find-up": "^3.0.0",
     "fs-extra": "^7.0.0",
     "gradient-string": "^1.1.0",
+    "node-fetch": "^2.3.0",
     "octonode": "^0.9.5",
     "request": "^2.87.0",
     "select-shell": "^1.1.2",

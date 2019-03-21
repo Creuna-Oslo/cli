@@ -18,6 +18,11 @@ const commands = [
     description: 'Create new project in current directory'
   },
   {
+    name: 'job',
+    args: '<name> <contact> <message>',
+    description: 'Apply for a job at Creuna'
+  },
+  {
     name: 'lib',
     args: '',
     description: 'Add a component from the library'
@@ -180,6 +185,18 @@ const help = () => {
   );
 };
 
+const jobApplySuccess = () => {
+  console.log(`🚀  ${chalk.greenBright("Thanks! We'll get back to you.")}`);
+};
+
+const jobApplyFail = () => {
+  console.log(
+    `😩 ${chalk.redBright(
+      'Sorry, something went wrong. Try again or apply directly at'
+    )} ${chalk.blueBright('mailto:HR@creuna.no')}`
+  );
+};
+
 const missingFile = () => {
   console.log(chalk.redBright(`${emoji('⁉️', '×')} Missing file`));
 };
@@ -249,6 +266,8 @@ module.exports = {
   gitHubReadError,
   gitHubRequestTimeout,
   help,
+  jobApplyFail,
+  jobApplySuccess,
   messageList,
   missingFile,
   noComponentsSelected,
