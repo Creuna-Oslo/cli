@@ -24,17 +24,6 @@ function runScript({
     }
   });
 
-  const { shouldBeStateful } =
-    command === supportedCommands.component
-      ? prompt({
-          shouldBeStateful: {
-            text: 'Should the component be stateful?',
-            type: Boolean,
-            value: shellArguments[1] === '-s' ? true : undefined
-          }
-        })
-      : {};
-
   const { groupName, humanReadableName, pageUrl } =
     command === supportedCommands.page
       ? prompt({
@@ -88,8 +77,7 @@ function runScript({
       return newComponent({
         componentName,
         eslintConfig,
-        folderPath: componentBasePath,
-        shouldBeStateful
+        folderPath: componentBasePath
       });
     case supportedCommands.page:
       return newPage({
