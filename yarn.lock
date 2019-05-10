@@ -341,10 +341,10 @@
   dependencies:
     readline-sync "^1.4.9"
 
-"@creuna/react-scripts@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@creuna/react-scripts/-/react-scripts-5.0.0.tgz#4c660fd187c7e04b4d7ba70840fd8aee0af5ba0c"
-  integrity sha512-YaffVGfJwxNMY2RifLRz9IvvBdDX158LeG0zMM+dimPP2S5fYjUKEzTOQASV+VuQ6KHdnhRiLveMq/vZPaSurA==
+"@creuna/react-scripts@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@creuna/react-scripts/-/react-scripts-6.0.0.tgz#c223b829069c9ca3e7e6987899f4bafa16a82a46"
+  integrity sha512-OZdTAXMCOOE5C8diclDPnSavJfx4svubAI3IkuA/b4lUq6LcJ2/3RJCJoXfSN/3NN4p2K9sAmAYsto0bcxPl1Q==
   dependencies:
     "@babel/generator" "^7.1.2"
     "@babel/parser" "^7.1.2"
