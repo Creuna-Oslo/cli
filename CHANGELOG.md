@@ -1,3 +1,8 @@
+# 3.2.0
+
+- Upgrades all dependencies
+- Removes support for creating class components with `creuna component`
+
 # 3.1.0
 
 - Adds `creuna job`. Apply for a job using a cli!

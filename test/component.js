@@ -7,11 +7,9 @@ const createMockApp = require('./utils/create-mock-app');
 const mockMessages = require('./utils/mock-messages');
 const mockPrompt = require('./utils/mock-prompt');
 
-const template = async (t, answers = {}, shellArguments = []) => {
-  t.plan(2);
-
+test('Creates component', async t => {
   const runReactScript = proxyquire('../source/run-react-script', {
-    '@creuna/prompt': mockPrompt.bind(null, answers),
+    '@creuna/prompt': mockPrompt.bind(null, { pathOrName: 'component' }),
     './messages': mockMessages
   });
 
@@ -23,19 +21,9 @@ const template = async (t, answers = {}, shellArguments = []) => {
   await runReactScript({
     command: 'component',
     componentsPath,
-    shellArguments
+    shellArguments: []
   });
 
   t.is(fs.existsSync(componentPath), true);
   t.snapshot(fs.readFileSync(componentPath, 'utf-8'));
-};
-
-test('Stateful component', template, {
-  pathOrName: 'component',
-  shouldBeStateful: true
-});
-test('Stateful component (arguments)', template, {}, ['component', '-s']);
-test('Stateless component', template, {
-  pathOrName: 'component',
-  shouldBeStateful: false
 });
