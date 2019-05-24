@@ -1,3 +1,7 @@
+# 3.2.1
+
+- Upgrades dependencies
+
 # 3.2.0
 
 - Upgrades all dependencies
