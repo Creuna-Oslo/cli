@@ -54,7 +54,8 @@ module.exports = function({ cwd = process.cwd(), command, shellArguments }) {
       dataFileContent,
       dataFileExtension,
       eslintConfig,
-      staticSitePath
+      staticSitePath,
+      staticPageTemplate
     },
     configError
   ] = getConfig(cwd);
@@ -77,7 +78,8 @@ module.exports = function({ cwd = process.cwd(), command, shellArguments }) {
     dataFileExtension,
     eslintConfig,
     shellArguments,
-    staticSitePath
+    staticSitePath,
+    staticPageTemplate
   }).then(() => {
     checkVersion();
     process.exit(0);

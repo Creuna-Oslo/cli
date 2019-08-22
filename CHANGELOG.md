@@ -1,3 +1,7 @@
+# 3.3.0
+
+- Adds support for setting `staticPageTemplate` in `.creunarc.json`
+
 # 3.2.1
 
 - Upgrades dependencies

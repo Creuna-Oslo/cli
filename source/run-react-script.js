@@ -12,7 +12,8 @@ function runScript({
   componentsPath,
   eslintConfig,
   shellArguments,
-  staticSitePath
+  staticSitePath,
+  staticPageTemplate
 }) {
   const { pathOrName } = prompt({
     pathOrName: {
@@ -88,6 +89,7 @@ function runScript({
         folderPath: pageBasePath,
         groupName,
         humanReadableName,
+        template: staticPageTemplate,
         url: pageUrl
       });
     case supportedCommands.rename:

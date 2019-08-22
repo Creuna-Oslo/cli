@@ -17,12 +17,8 @@ module.exports = function(cwd = process.cwd()) {
   }
 
   const projectRoot = path.dirname(creunaRcPath);
-  const {
-    componentsPath,
-    staticSitePath,
-    dataFileExtension,
-    dataFileContent
-  } = require(path.relative(__dirname, creunaRcPath));
+  const config = require(path.relative(__dirname, creunaRcPath));
+  const { componentsPath, staticSitePath } = config;
 
   try {
     const errorFooter = `\nThis property is required when using a '.creunarc.json' file.`;
@@ -39,12 +35,10 @@ module.exports = function(cwd = process.cwd()) {
   }
 
   return [
-    {
+    Object.assign({}, config, {
       componentsPath: path.join(projectRoot, componentsPath),
       staticSitePath: path.join(projectRoot, staticSitePath),
-      dataFileContent,
-      dataFileExtension,
       eslintConfig
-    }
+    })
   ];
 };

@@ -79,3 +79,18 @@ All commands except `creuna new` support a `.creunarc.json` in your project root
   "dataFileContent": "export default { a: 'a' };"
 }
 ```
+
+#### Custom static page template
+
+A custom template can be added that will be used when running `creuna page`. The template can be added in `.creunarc.json` as `staticPageTemplate` which must be an array of strings (one string per line). `@babel/template` syntax (see [here](https://babeljs.io/docs/en/babel-template)) is used to insert the correct component name and data file path. The tokens `%%componentName%%` and `%%dataFilePath%%` are used for this and they must be included at least once each. Example:
+
+```json
+{
+  "staticPageTemplate": [
+    "import React from 'react';",
+    "import content from %%dataFilePath%%;",
+    "const %%componentName%% = () => <div />;",
+    "export default %%componentName%%;"
+  ]
+}
+```

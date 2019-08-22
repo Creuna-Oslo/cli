@@ -34,8 +34,6 @@ const createPage = async (answers, shellArguments = [], options) => {
 };
 
 test('With prompt', async t => {
-  t.plan(2);
-
   const staticSitePath = await createPage({
     pathOrName: 'new-page',
     groupName: 'Pages',
@@ -58,8 +56,6 @@ ${pageFixture}`;
 });
 
 test('With arguments', async t => {
-  t.plan(2);
-
   const staticSitePath = await createPage({}, [
     'new-page',
     'New page',
@@ -91,8 +87,6 @@ test('With custom data file extension', async t => {
 });
 
 test('With custom data file extension and content', async t => {
-  t.plan(2);
-
   const staticSitePath = await createPage({}, ['new-page'], {
     dataFileExtension: 'js',
     dataFileContent: 'export default { a: 1 };'
@@ -102,4 +96,25 @@ test('With custom data file extension and content', async t => {
 
   t.is(true, fs.existsSync(dataFilePath));
   t.is('export default { a: 1 };', fs.readFileSync(dataFilePath, 'utf-8'));
+});
+
+test('With custom template', async t => {
+  const staticSitePath = await createPage({}, ['new-page'], {
+    staticPageTemplate: [
+      'import React from "react";',
+      'import content from %%dataFilePath%%;',
+      'export const %%componentName%% = () => {};'
+    ]
+  });
+  const expectedSource = `/*
+ */
+
+import React from 'react';
+import content from './new-page.json';
+
+export const NewPage = () => {};
+`;
+  const filePath = path.join(staticSitePath, 'new-page', 'new-page.jsx');
+
+  t.is(expectedSource, fs.readFileSync(filePath, 'utf-8'));
 });
