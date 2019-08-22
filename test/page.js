@@ -111,7 +111,6 @@ test('With custom template', async t => {
 
 import React from 'react';
 import content from './new-page.json';
-
 export const NewPage = () => {};
 `;
   const filePath = path.join(staticSitePath, 'new-page', 'new-page.jsx');
