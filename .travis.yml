@@ -1,12 +1,15 @@
 language: node_js
 node_js: "lts/*"
-deploy:
-  provider: npm
-  email: $NPM_EMAIL
-  api_key: $NPM_TOKEN
-  on:
-    branch: master
-  skip_cleanup: true
+# NOTE: In order to enable automatic deployment to npm add 'NPM_EMAIL' and 'NPM_TOKEN' under Environment Variables here: https://travis-ci.org/Creuna-Oslo/cli/settings and uncomment the following section
+
+# deploy:
+#   provider: npm
+#   email: $NPM_EMAIL
+#   api_key: $NPM_TOKEN
+#   on:
+#     branch: master
+#   skip_cleanup: true
+
 # notifications:
 #   webhooks:
 #     on_start: always
